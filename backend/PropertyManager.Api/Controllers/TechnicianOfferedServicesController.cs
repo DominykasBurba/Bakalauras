@@ -66,39 +66,19 @@ public sealed class TechnicianOfferedServicesController(AppDbContext db) : Contr
     [HttpPut("{id:int}")]
     public async Task<ActionResult<OfferedServiceResponse>> Update(
         int id,
-        [FromBody] OfferedServiceWriteRequest body,
+        [FromBody] OfferedServiceWriteRequest _,
         CancellationToken cancellationToken)
     {
         if (!ClaimsHelper.TryGetUserId(User, out var userId))
             return Unauthorized();
 
-        var title = body.Title?.Trim() ?? "";
-        if (title.Length == 0)
-            return BadRequest("Title is required.");
-        if (title.Length > 500)
-            return BadRequest("Title must be at most 500 characters.");
-
-        var desc = string.IsNullOrWhiteSpace(body.Description) ? null : body.Description.Trim();
-        if (desc != null && desc.Length > 4000)
-            return BadRequest("Description must be at most 4000 characters.");
-
-        var entity = await db.TechnicianOfferedServices.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        var entity = await db.TechnicianOfferedServices.AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         if (entity is null || entity.UserId != userId)
             return NotFound();
 
-        entity.Title = title;
-        entity.Description = desc;
-        entity.SortOrder = body.SortOrder ?? entity.SortOrder;
-
-        if (string.Equals(entity.ReviewStatus, OfferedServiceReviewStatus.Rejected, StringComparison.OrdinalIgnoreCase))
-        {
-            entity.ReviewStatus = OfferedServiceReviewStatus.PendingReview;
-            entity.AdminReviewNote = null;
-        }
-
-        await db.SaveChangesAsync(cancellationToken);
-        var names = await ResolveMappedCatalogNamesAsync([entity], cancellationToken);
-        return Ok(OfferedServiceMapper.ToResponse(entity, names));
+        return BadRequest(
+            "Submitted services cannot be edited. Contact the property office if you need changes.");
     }
 
     [HttpDelete("{id:int}")]
@@ -111,9 +91,8 @@ public sealed class TechnicianOfferedServicesController(AppDbContext db) : Contr
         if (entity is null || entity.UserId != userId)
             return NotFound();
 
-        db.TechnicianOfferedServices.Remove(entity);
-        await db.SaveChangesAsync(cancellationToken);
-        return NoContent();
+        return BadRequest(
+            "Submitted services cannot be removed. Contact the property office if a line should be taken down.");
     }
 
     private async Task<Dictionary<int, string>> ResolveMappedCatalogNamesAsync(

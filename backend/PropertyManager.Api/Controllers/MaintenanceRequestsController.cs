@@ -52,6 +52,14 @@ public sealed class TechnicianStatusRequest
     public string? CompletionNotes { get; init; }
 }
 
+public sealed class TechnicianSiteDetailsRequest
+{
+    public string SiteUpdate { get; init; } = "";
+    public string MaterialsUsed { get; init; } = "";
+    public string ExpectedReturnDate { get; init; } = "";
+    public string OfficeNotes { get; init; } = "";
+}
+
 public sealed class TechnicianInvoiceRequest
 {
     public required string InvoiceUrl { get; init; }
@@ -101,21 +109,20 @@ public class MaintenanceRequestsController(IDataStore dataStore) : ControllerBas
 
         if (User.IsInRole("Technician"))
         {
-            var name = User.FindFirst(ClaimTypes.Name)?.Value;
-            if (string.IsNullOrWhiteSpace(name))
+            if (!ClaimsHelper.TryGetUserId(User, out var techUserId))
                 return Ok(Array.Empty<MaintenanceRequest>());
+            var name = User.FindFirst(ClaimTypes.Name)?.Value;
             return Ok(dataStore.Requests
-                .Where(r => string.Equals(
-                    (r.AssignedTechnician ?? "").Trim(),
-                    name.Trim(),
-                    StringComparison.OrdinalIgnoreCase))
+                .Where(r => dataStore.IsTechnicianAssignedToMaintenance(r, techUserId, name))
                 .ToList());
         }
 
-        return Ok(dataStore.Requests.Where(r => r.CreatedByUserId == userId).ToList());
+        return Ok(dataStore.Requests
+            .Where(r => r.CreatedByUserId == userId)
+            .Select(MaintenanceRequestView.ForResident)
+            .ToList());
     }
 
-    /// <summary>Get one request. Residents: own only. Technicians: assigned to them (name match). Admins: any.</summary>
     [HttpGet("{id}")]
     public IActionResult GetById(string id)
     {
@@ -131,12 +138,10 @@ public class MaintenanceRequestsController(IDataStore dataStore) : ControllerBas
 
         if (User.IsInRole("Technician"))
         {
+            if (!ClaimsHelper.TryGetUserId(User, out var techUserId))
+                return Unauthorized();
             var name = User.FindFirst(ClaimTypes.Name)?.Value;
-            if (string.IsNullOrWhiteSpace(name) ||
-                !string.Equals(
-                    (req.AssignedTechnician ?? "").Trim(),
-                    name.Trim(),
-                    StringComparison.OrdinalIgnoreCase))
+            if (!dataStore.IsTechnicianAssignedToMaintenance(req, techUserId, name))
                 return NotFound();
             return Ok(req);
         }
@@ -144,7 +149,7 @@ public class MaintenanceRequestsController(IDataStore dataStore) : ControllerBas
         if (req.CreatedByUserId != userId)
             return NotFound();
 
-        return Ok(req);
+        return Ok(MaintenanceRequestView.ForResident(req));
     }
 
     [HttpPost]
@@ -156,7 +161,10 @@ public class MaintenanceRequestsController(IDataStore dataStore) : ControllerBas
             return Unauthorized();
 
         var created = dataStore.AddRequest(userId, request.Title, request.Description, request.Priority, request.PhotoUrls);
-        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        return CreatedAtAction(
+            nameof(GetById),
+            new { id = created.Id },
+            MaintenanceRequestView.ForResident(created));
     }
 
     [HttpPatch("{id}/technician")]
@@ -182,7 +190,6 @@ public class MaintenanceRequestsController(IDataStore dataStore) : ControllerBas
         return Ok(updated);
     }
 
-    /// <summary>Admin: set triage priority (Low / Medium / High).</summary>
     [HttpPatch("{id}/priority")]
     [Authorize(Roles = "Admin")]
     public IActionResult UpdatePriority(string id, [FromBody] UpdatePriorityRequest body)
@@ -207,7 +214,6 @@ public class MaintenanceRequestsController(IDataStore dataStore) : ControllerBas
         return Ok(updated);
     }
 
-    /// <summary>Admin: approve a resident-submitted request (Requested → Registered).</summary>
     [HttpPost("{id}/approve")]
     [Authorize(Roles = "Admin")]
     public IActionResult Approve(string id)
@@ -217,7 +223,6 @@ public class MaintenanceRequestsController(IDataStore dataStore) : ControllerBas
         return Ok(dataStore.GetRequestById(id));
     }
 
-    /// <summary>Admin: decline a resident-submitted request (Requested → Declined).</summary>
     [HttpPost("{id}/decline")]
     [Authorize(Roles = "Admin")]
     public IActionResult Decline(string id, [FromBody] DeclineMaintenanceRequestBody? body)
@@ -227,7 +232,6 @@ public class MaintenanceRequestsController(IDataStore dataStore) : ControllerBas
         return Ok(dataStore.GetRequestById(id));
     }
 
-    /// <summary>Admin: close work order with no tenant charge (Solved → Completed).</summary>
     [HttpPost("{id}/complete-without-charge")]
     [Authorize(Roles = "Admin")]
     public IActionResult CompleteWithoutCharge(string id)
@@ -237,7 +241,6 @@ public class MaintenanceRequestsController(IDataStore dataStore) : ControllerBas
         return Ok(dataStore.GetRequestById(id));
     }
 
-    /// <summary>Resident: comment after the technician finishes (Solved / Unpaid / Completed).</summary>
     [HttpPatch("{id}/resident-feedback")]
     [Authorize(Roles = "Resident")]
     public IActionResult SetResidentFeedback(string id, [FromBody] ResidentFeedbackRequest body)
@@ -248,10 +251,9 @@ public class MaintenanceRequestsController(IDataStore dataStore) : ControllerBas
             return BadRequest(
                 "Feedback can only be set on your own requests after the work is finished (Solved or later).");
         var updated = dataStore.GetRequestById(id);
-        return Ok(updated);
+        return updated is null ? NotFound() : Ok(MaintenanceRequestView.ForResident(updated));
     }
 
-    /// <summary>Admin: reply to the resident (notification) and store on the work order.</summary>
     [HttpPatch("{id}/admin-resident-response")]
     [Authorize(Roles = "Admin")]
     public IActionResult SetAdminResidentResponse(string id, [FromBody] AdminResidentResponseRequest body)
@@ -261,28 +263,28 @@ public class MaintenanceRequestsController(IDataStore dataStore) : ControllerBas
         return Ok(dataStore.GetRequestById(id));
     }
 
-    /// <summary>Technician: In Progress, or Solved (vendor invoice URL required; may finish from Registered or In Progress).</summary>
     [HttpPatch("{id}/technician-status")]
     [Authorize(Roles = "Technician")]
     public IActionResult TechnicianUpdateStatus(string id, [FromBody] TechnicianStatusRequest body)
     {
-        var name = User.FindFirst(ClaimTypes.Name)?.Value;
-        if (string.IsNullOrWhiteSpace(name))
+        if (!ClaimsHelper.TryGetUserId(User, out var techUserId))
             return Unauthorized();
-        if (!dataStore.TryTechnicianUpdateStatus(id, name, body.Status, body.CompletionNotes))
+        var name = User.FindFirst(ClaimTypes.Name)?.Value;
+        if (!dataStore.TryTechnicianUpdateStatus(id, techUserId, name, body.Status, body.CompletionNotes))
             return BadRequest("Cannot update this request (not assigned to you, already completed, or invalid status).");
         var updated = dataStore.GetRequestById(id);
         return Ok(updated);
     }
 
-    /// <summary>Technician: attach vendor invoice link (and optional amount/notes) for the office.</summary>
     [HttpPatch("{id}/technician-invoice")]
     [Authorize(Roles = "Technician")]
     public IActionResult SetTechnicianInvoice(string id, [FromBody] TechnicianInvoiceRequest body)
     {
-        var name = User.FindFirst(ClaimTypes.Name)?.Value;
-        if (string.IsNullOrWhiteSpace(name))
+        if (!ClaimsHelper.TryGetUserId(User, out var techUserId))
             return Unauthorized();
+        var name = User.FindFirst(ClaimTypes.Name)?.Value;
+        if (!HttpUrlHelper.TryNormalizeHttpUrl(body.InvoiceUrl, out _))
+            return BadRequest("Invoice URL must be a valid http:// or https:// link.");
         var submit = new TechnicianInvoiceSubmit
         {
             InvoiceUrl = body.InvoiceUrl,
@@ -294,14 +296,34 @@ public class MaintenanceRequestsController(IDataStore dataStore) : ControllerBas
             WorkPhotoUrls = body.WorkPhotoUrls,
             SignatureAcknowledgment = body.SignatureAcknowledgment,
         };
-        if (!dataStore.TrySetTechnicianInvoice(id, name, submit))
+        if (!dataStore.TrySetTechnicianInvoice(id, techUserId, name, submit))
             return BadRequest(
-                "Could not save invoice (you must be assigned, provide a non-empty invoice URL, and amounts must be valid).");
+                "Could not save invoice (you must be assigned, work photo URLs must be http(s) links if provided, and amounts must be valid).");
         var updated = dataStore.GetRequestById(id);
         return Ok(updated);
     }
 
-    /// <summary>Admin: record vendor payment status (accounts payable — not money movement in this app).</summary>
+    [HttpPatch("{id}/technician-site-details")]
+    [Authorize(Roles = "Technician")]
+    public IActionResult TechnicianSiteDetails(string id, [FromBody] TechnicianSiteDetailsRequest body)
+    {
+        if (!ClaimsHelper.TryGetUserId(User, out var techUserId))
+            return Unauthorized();
+        var name = User.FindFirst(ClaimTypes.Name)?.Value;
+        var submit = new TechnicianSiteDetailsSubmit
+        {
+            SiteUpdate = body.SiteUpdate,
+            MaterialsUsed = body.MaterialsUsed,
+            ExpectedReturnDate = body.ExpectedReturnDate,
+            OfficeNotes = body.OfficeNotes,
+        };
+        if (!dataStore.TryTechnicianUpdateSiteDetails(id, techUserId, name, submit))
+            return BadRequest(
+                "Could not save site details (you must be assigned, status must be Registered or In Progress, and expected return date must be a valid date if provided).");
+        var updated = dataStore.GetRequestById(id);
+        return Ok(updated);
+    }
+
     [HttpPatch("{id}/technician-payout")]
     [Authorize(Roles = "Admin")]
     public IActionResult SetTechnicianPayout(string id, [FromBody] TechnicianPayoutRequest body)
@@ -319,7 +341,6 @@ public class MaintenanceRequestsController(IDataStore dataStore) : ControllerBas
         return Ok(updated);
     }
 
-    /// <summary>Admin: bill the resident who submitted the request for tenant-caused damage (one bill per work order).</summary>
     [HttpPost("{id}/resident-charge")]
     [Authorize(Roles = "Admin")]
     public IActionResult CreateResidentCharge(string id, [FromBody] ResidentChargeRequest body)
@@ -332,5 +353,29 @@ public class MaintenanceRequestsController(IDataStore dataStore) : ControllerBas
                 "Could not create bill (request not found, submitter is not a resident, a bill already exists for this work order, or amount is invalid).");
         var request = dataStore.GetRequestById(id);
         return Ok(new ResidentChargeResponse { Bill = bill, Request = request! });
+    }
+
+    [HttpPatch("{id}/resident-charge")]
+    [Authorize(Roles = "Admin")]
+    public IActionResult UpdateResidentCharge(string id, [FromBody] ResidentChargeRequest body)
+    {
+        var type = string.IsNullOrWhiteSpace(body.Type) ? "Maintenance / tenant damage" : body.Type.Trim();
+        var bill = dataStore.TryUpdateResidentBillDraft(id, body.Amount, type, body.DueDate);
+        if (bill is null)
+            return BadRequest(
+                "Could not update bill (request not found, not waiting on payment, bill already sent to resident, or amount is invalid).");
+        var request = dataStore.GetRequestById(id);
+        return Ok(new ResidentChargeResponse { Bill = bill, Request = request! });
+    }
+
+    [HttpPost("{id}/resident-charge/send")]
+    [Authorize(Roles = "Admin")]
+    public IActionResult SendResidentChargeNotification(string id)
+    {
+        var updated = dataStore.TrySendResidentBillNotification(id);
+        if (updated is null)
+            return BadRequest(
+                "Could not send bill (request not found, not waiting on payment, no bill, or resident was already notified).");
+        return Ok(updated);
     }
 }

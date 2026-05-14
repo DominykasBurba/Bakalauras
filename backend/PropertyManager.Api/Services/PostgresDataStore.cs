@@ -104,7 +104,6 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
         return MapRequest(entity, ctx);
     }
 
-    /// <summary>Next REQ-### id based on max existing number (safe if rows are deleted).</summary>
     private int NextRequestNumber()
     {
         var ids = _db.MaintenanceRequests.AsNoTracking().Select(r => r.Id).ToList();
@@ -123,6 +122,8 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
     {
         var bill = _db.Bills.FirstOrDefault(b => b.BillId == billId);
         if (bill is null)
+            return false;
+        if (!bill.ResidentNotificationSent)
             return false;
         if (string.Equals(bill.Status, "Paid", StringComparison.OrdinalIgnoreCase))
         {
@@ -143,7 +144,6 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
         return true;
     }
 
-    /// <summary>When a maintenance-linked bill is paid, move Unpaid → Completed and notify the resident.</summary>
     private void CompleteMaintenanceAfterBillPaidIfNeeded(string? maintenanceRequestId)
     {
         if (string.IsNullOrWhiteSpace(maintenanceRequestId))
@@ -206,6 +206,19 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
                 return false;
         }
         req.AssignedTechnician = assigningName;
+        req.AssignedTechnicianUserId = null;
+        if (!string.Equals(assigningName, "Not assigned", StringComparison.OrdinalIgnoreCase))
+        {
+            var needle = assigningName;
+            var tech = _db.Users.AsNoTracking()
+                .Where(u => u.Role != null && u.Role.ToLower() == "technician")
+                .AsEnumerable()
+                .FirstOrDefault(u =>
+                    u.Name != null &&
+                    string.Equals(u.Name.Trim(), needle, StringComparison.OrdinalIgnoreCase));
+            req.AssignedTechnicianUserId = tech?.Id;
+        }
+
         if (!string.Equals(req.AssignedTechnician, "Not assigned", StringComparison.OrdinalIgnoreCase))
         {
             var titleShort = req.Title.Trim();
@@ -396,15 +409,45 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
         return true;
     }
 
-    public bool TryTechnicianUpdateStatus(string requestId, string technicianName, string status, string? completionNotes)
+    public bool IsTechnicianAssignedToMaintenance(MaintenanceRequest request, int technicianUserId, string? nameClaim)
     {
-        if (string.IsNullOrWhiteSpace(requestId) || string.IsNullOrWhiteSpace(technicianName))
+        if (string.Equals(request.AssignedTechnician.Trim(), "Not assigned", StringComparison.OrdinalIgnoreCase))
+            return false;
+        if (request.AssignedTechnicianUserId is int uid && uid == technicianUserId)
+            return true;
+        if (!string.IsNullOrWhiteSpace(nameClaim) &&
+            string.Equals(request.AssignedTechnician.Trim(), nameClaim.Trim(), StringComparison.OrdinalIgnoreCase))
+            return true;
+        var user = _db.Users.AsNoTracking().FirstOrDefault(u => u.Id == technicianUserId);
+        return user != null &&
+               string.Equals(user.Role, "Technician", StringComparison.OrdinalIgnoreCase) &&
+               string.Equals(user.Name.Trim(), request.AssignedTechnician.Trim(), StringComparison.OrdinalIgnoreCase);
+    }
+
+    private bool TechnicianUserCanActOnRequest(MaintenanceRequestEntity req, int technicianUserId, string? nameClaim)
+    {
+        if (string.Equals(req.AssignedTechnician.Trim(), "Not assigned", StringComparison.OrdinalIgnoreCase))
+            return false;
+        if (req.AssignedTechnicianUserId is int assignedUid && assignedUid == technicianUserId)
+            return true;
+        if (!string.IsNullOrWhiteSpace(nameClaim) &&
+            string.Equals(req.AssignedTechnician.Trim(), nameClaim.Trim(), StringComparison.OrdinalIgnoreCase))
+            return true;
+        var user = _db.Users.AsNoTracking().FirstOrDefault(u => u.Id == technicianUserId);
+        return user != null &&
+               string.Equals(user.Role, "Technician", StringComparison.OrdinalIgnoreCase) &&
+               string.Equals(user.Name.Trim(), req.AssignedTechnician.Trim(), StringComparison.OrdinalIgnoreCase);
+    }
+
+    public bool TryTechnicianUpdateStatus(string requestId, int technicianUserId, string? technicianNameClaim, string status, string? completionNotes)
+    {
+        if (string.IsNullOrWhiteSpace(requestId) || technicianUserId <= 0)
             return false;
         var idKey = requestId.Trim().ToLowerInvariant();
         var req = _db.MaintenanceRequests.FirstOrDefault(r => r.Id.ToLower() == idKey);
         if (req is null)
             return false;
-        if (!string.Equals(req.AssignedTechnician.Trim(), technicianName.Trim(), StringComparison.OrdinalIgnoreCase))
+        if (!TechnicianUserCanActOnRequest(req, technicianUserId, technicianNameClaim))
             return false;
         if (MaintenanceWorkflow.IsTerminal(req.Status) ||
             string.Equals(req.Status, MaintenanceWorkflow.Unpaid, StringComparison.OrdinalIgnoreCase) ||
@@ -427,7 +470,6 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
 
         if (string.Equals(normalized, MaintenanceWorkflow.Solved, StringComparison.OrdinalIgnoreCase))
         {
-            // Invoice must be on file; allow finishing from Registered or In Progress (no separate "In Progress" step required).
             if (!string.Equals(req.Status, MaintenanceWorkflow.InProgress, StringComparison.OrdinalIgnoreCase) &&
                 !string.Equals(req.Status, MaintenanceWorkflow.Registered, StringComparison.OrdinalIgnoreCase))
                 return false;
@@ -448,23 +490,18 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
         return false;
     }
 
-    public bool TrySetTechnicianInvoice(string requestId, string technicianName, TechnicianInvoiceSubmit submit)
+    public bool TrySetTechnicianInvoice(string requestId, int technicianUserId, string? technicianNameClaim, TechnicianInvoiceSubmit submit)
     {
-        if (string.IsNullOrWhiteSpace(requestId) || string.IsNullOrWhiteSpace(technicianName))
+        if (string.IsNullOrWhiteSpace(requestId) || technicianUserId <= 0)
             return false;
-        var invoiceUrl = submit.InvoiceUrl.Trim();
-        if (invoiceUrl.Length > 2000)
-            invoiceUrl = invoiceUrl[..2000];
-        if (string.IsNullOrWhiteSpace(invoiceUrl))
+        if (!HttpUrlHelper.TryNormalizeHttpUrl(submit.InvoiceUrl, out var invoiceUrlNorm))
             return false;
 
         var idKey = requestId.Trim().ToLowerInvariant();
         var req = _db.MaintenanceRequests.FirstOrDefault(r => r.Id.ToLower() == idKey);
         if (req is null)
             return false;
-        if (string.Equals(req.AssignedTechnician.Trim(), "Not assigned", StringComparison.OrdinalIgnoreCase))
-            return false;
-        if (!string.Equals(req.AssignedTechnician.Trim(), technicianName.Trim(), StringComparison.OrdinalIgnoreCase))
+        if (!TechnicianUserCanActOnRequest(req, technicianUserId, technicianNameClaim))
             return false;
         if (string.Equals(req.Status, MaintenanceWorkflow.Requested, StringComparison.OrdinalIgnoreCase) ||
             string.Equals(req.Status, MaintenanceWorkflow.Solved, StringComparison.OrdinalIgnoreCase) ||
@@ -513,7 +550,7 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
         if (sig is { Length: > 500 })
             sig = sig[..500];
 
-        req.TechnicianInvoiceUrl = invoiceUrl;
+        req.TechnicianInvoiceUrl = invoiceUrlNorm;
         req.TechnicianInvoiceAmount = computedTotal;
         var n = string.IsNullOrWhiteSpace(submit.Notes) ? null : submit.Notes.Trim();
         if (n is { Length: > 4000 })
@@ -528,6 +565,111 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
         req.TechnicianSignatureAcknowledgment = sig;
         _db.SaveChanges();
         return true;
+    }
+
+    public bool TryTechnicianUpdateSiteDetails(string requestId, int technicianUserId, string? technicianNameClaim, TechnicianSiteDetailsSubmit submit)
+    {
+        if (string.IsNullOrWhiteSpace(requestId) || technicianUserId <= 0)
+            return false;
+
+        var idKey = requestId.Trim().ToLowerInvariant();
+        var req = _db.MaintenanceRequests.FirstOrDefault(r => r.Id.ToLower() == idKey);
+        if (req is null)
+            return false;
+        if (!TechnicianUserCanActOnRequest(req, technicianUserId, technicianNameClaim))
+            return false;
+        if (string.Equals(req.Status, MaintenanceWorkflow.Requested, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(req.Status, MaintenanceWorkflow.Solved, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(req.Status, MaintenanceWorkflow.Unpaid, StringComparison.OrdinalIgnoreCase) ||
+            MaintenanceWorkflow.IsTerminal(req.Status))
+            return false;
+        if (!string.Equals(req.Status, MaintenanceWorkflow.Registered, StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(req.Status, MaintenanceWorkflow.InProgress, StringComparison.OrdinalIgnoreCase))
+            return false;
+
+        static string? TrimField(string raw, int max)
+        {
+            var t = raw.Trim();
+            if (t.Length == 0)
+                return null;
+            return t.Length > max ? t[..max] : t;
+        }
+
+        var site = TrimField(submit.SiteUpdate, 4000);
+        var materials = TrimField(submit.MaterialsUsed, 4000);
+        var office = TrimField(submit.OfficeNotes, 4000);
+
+        if (!TryParseExpectedReturnDateLoose(submit.ExpectedReturnDate, out var expectedDate))
+            return false;
+
+        req.TechnicianSiteUpdate = site;
+        req.TechnicianMaterialsUsed = materials;
+        req.TechnicianExpectedReturnDate = expectedDate;
+        req.TechnicianOfficeNotes = office;
+
+        var history = DeserializeSiteHistory(req.TechnicianSiteUpdateHistoryJson);
+        history.Add(new TechnicianSiteUpdateHistoryEntry
+        {
+            At = DateTimeOffset.UtcNow,
+            SiteUpdate = site,
+            MaterialsUsed = materials,
+            ExpectedReturnDate = expectedDate,
+            OfficeNotes = office,
+        });
+        while (history.Count > 100)
+            history.RemoveAt(0);
+        req.TechnicianSiteUpdateHistoryJson = JsonSerializer.Serialize(history,
+            new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+
+        _db.SaveChanges();
+        return true;
+    }
+
+    private static bool TryParseExpectedReturnDateLoose(string? raw, out DateOnly? date)
+    {
+        date = null;
+        var s = raw?.Trim() ?? "";
+        if (s.Length == 0)
+            return true;
+        if (DateOnly.TryParse(s, CultureInfo.InvariantCulture, DateTimeStyles.None, out var d1))
+        {
+            date = d1;
+            return true;
+        }
+
+        if (DateOnly.TryParse(s, CultureInfo.CurrentCulture, DateTimeStyles.None, out var d2))
+        {
+            date = d2;
+            return true;
+        }
+
+        if (DateTime.TryParse(s, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out var dt1))
+        {
+            date = DateOnly.FromDateTime(dt1);
+            return true;
+        }
+
+        if (DateTime.TryParse(s, CultureInfo.CurrentCulture, DateTimeStyles.None, out var dt2))
+        {
+            date = DateOnly.FromDateTime(dt2);
+            return true;
+        }
+
+        return false;
+    }
+
+    private static List<TechnicianSiteUpdateHistoryEntry> DeserializeSiteHistory(string json)
+    {
+        try
+        {
+            var opts = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var list = JsonSerializer.Deserialize<List<TechnicianSiteUpdateHistoryEntry>>(json, opts);
+            return list ?? [];
+        }
+        catch
+        {
+            return [];
+        }
     }
 
     public bool TrySetTechnicianPayout(string requestId, TechnicianPayoutSubmit submit)
@@ -615,9 +757,9 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
             var t = u?.Trim() ?? "";
             if (t.Length == 0)
                 continue;
-            if (t.Length > 2000)
+            if (!HttpUrlHelper.TryNormalizeHttpUrl(t, out var norm))
                 return null;
-            list.Add(t);
+            list.Add(norm);
         }
 
         return list;
@@ -652,7 +794,6 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
         if (_db.Bills.Any(b => b.BillId == billId))
             return null;
 
-        var prev = req.Status;
         req.Status = MaintenanceWorkflow.Unpaid;
 
         var billEntity = new BillEntity
@@ -664,13 +805,110 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
             DueDate = dueDate,
             Status = "Unpaid",
             MaintenanceRequestId = req.Id,
+            ResidentNotificationSent = false,
         };
         _db.Bills.Add(billEntity);
-        NotifyResidentOfMaintenance(req, prev, MaintenanceWorkflow.Unpaid,
-            $"Bill {billId} for {amount:F2} USD — pay under Billing & Payments.");
         _db.SaveChanges();
 
         return MapBill(billEntity, user.BuildingId);
+    }
+
+    public Bill? TryUpdateResidentBillDraft(string requestId, decimal amount, string type, DateOnly? dueDate)
+    {
+        if (string.IsNullOrWhiteSpace(requestId) || amount <= 0 || amount > 999_999_999.99m)
+            return null;
+        type = string.IsNullOrWhiteSpace(type) ? "Maintenance / tenant damage" : type.Trim();
+        if (type.Length > 200)
+            type = type[..200];
+
+        var idKey = requestId.Trim().ToLowerInvariant();
+        var req = _db.MaintenanceRequests.FirstOrDefault(r => r.Id.ToLower() == idKey);
+        if (req is null)
+            return null;
+        if (!string.Equals(req.Status, MaintenanceWorkflow.Unpaid, StringComparison.OrdinalIgnoreCase))
+            return null;
+
+        var bill = _db.Bills.FirstOrDefault(b =>
+            b.MaintenanceRequestId != null &&
+            EF.Functions.ILike(b.MaintenanceRequestId.Trim(), req.Id));
+        if (bill is null || bill.ResidentNotificationSent)
+            return null;
+        if (!string.Equals(bill.Status, "Unpaid", StringComparison.OrdinalIgnoreCase))
+            return null;
+
+        bill.Amount = amount;
+        bill.Type = type;
+        if (dueDate is DateOnly d)
+            bill.DueDate = d;
+        _db.SaveChanges();
+
+        var user = _db.Users.FirstOrDefault(u => u.Id == bill.UserId);
+        return MapBill(bill, user?.BuildingId);
+    }
+
+    public MaintenanceRequest? TrySendResidentBillNotification(string maintenanceRequestId)
+    {
+        if (string.IsNullOrWhiteSpace(maintenanceRequestId))
+            return null;
+        var idKey = maintenanceRequestId.Trim();
+        var req = _db.MaintenanceRequests.FirstOrDefault(r => r.Id.ToLower() == idKey.ToLower());
+        if (req is null)
+            return null;
+        if (!string.Equals(req.Status, MaintenanceWorkflow.Unpaid, StringComparison.OrdinalIgnoreCase))
+            return null;
+
+        var bill = _db.Bills.FirstOrDefault(b =>
+            b.MaintenanceRequestId != null &&
+            EF.Functions.ILike(b.MaintenanceRequestId.Trim(), req.Id));
+        if (bill is null || bill.ResidentNotificationSent)
+            return null;
+
+        bill.ResidentNotificationSent = true;
+        NotifyResidentOfMaintenance(req, req.Status, req.Status,
+            $"Bill {bill.BillId} for {bill.Amount:F2} USD — pay under Billing & Payments.");
+        _db.SaveChanges();
+        return GetRequestById(req.Id);
+    }
+
+    public void ProcessBillDueReminders()
+    {
+        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+        var bills = _db.Bills
+            .Where(b => b.ResidentNotificationSent &&
+                        string.Equals(b.Status, "Unpaid", StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        var changed = false;
+        foreach (var bill in bills)
+        {
+            var days = bill.DueDate.DayNumber - today.DayNumber;
+
+            if (!bill.DueReminder7dSent && days is >= 4 and <= 7)
+            {
+                var msg =
+                    $"Bill {bill.BillId} ({bill.Type}) for {bill.Amount.ToString("F2", CultureInfo.InvariantCulture)} USD is due in {days} days ({bill.DueDate:yyyy-MM-dd}). Pay under Billing & Payments.";
+                NotifyResidentOfBillReminder(bill, msg);
+                bill.DueReminder7dSent = true;
+                changed = true;
+            }
+
+            if (!bill.DueReminder3dSent && days <= 3)
+            {
+                string msg;
+                if (days < 0)
+                    msg = $"Bill {bill.BillId} ({bill.Type}) for {bill.Amount.ToString("F2", CultureInfo.InvariantCulture)} USD was due {bill.DueDate:yyyy-MM-dd} and is overdue. Pay under Billing & Payments.";
+                else if (days == 0)
+                    msg = $"Bill {bill.BillId} ({bill.Type}) for {bill.Amount.ToString("F2", CultureInfo.InvariantCulture)} USD is due today ({bill.DueDate:yyyy-MM-dd}). Pay under Billing & Payments.";
+                else
+                    msg = $"Bill {bill.BillId} ({bill.Type}) for {bill.Amount.ToString("F2", CultureInfo.InvariantCulture)} USD is due in {days} day(s) ({bill.DueDate:yyyy-MM-dd}). Pay under Billing & Payments.";
+                NotifyResidentOfBillReminder(bill, msg);
+                bill.DueReminder3dSent = true;
+                changed = true;
+            }
+        }
+
+        if (changed)
+            _db.SaveChanges();
     }
 
     public bool TryMarkNotificationRead(int notificationId, int currentUserId, bool isAdmin)
@@ -759,6 +997,21 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
         });
     }
 
+    private void NotifyResidentOfBillReminder(BillEntity bill, string message)
+    {
+        var msg = message;
+        if (msg.Length > 4000)
+            msg = msg[..4000];
+        _db.Notifications.Add(new NotificationEntity
+        {
+            UserId = bill.UserId,
+            Message = msg,
+            RelativeTime = "just now",
+            IsRead = false,
+            Category = "Billing",
+        });
+    }
+
     private void NotifyAllAdmins(string message)
     {
         if (message.Length > 4000)
@@ -813,28 +1066,38 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
             ProfileStatus = u.Role.Equals("Resident", StringComparison.OrdinalIgnoreCase) ? u.ProfileStatus : null,
         };
 
+    private sealed record ResidentBillLookup(
+        string BillId,
+        bool NotificationSent,
+        decimal Amount,
+        string Type,
+        DateOnly DueDate);
+
     private sealed record RequestLookupContext(
         IReadOnlyDictionary<int, string> BuildingNames,
         IReadOnlyDictionary<int, UserEntity> UsersById,
-        IReadOnlyDictionary<string, string> BillIdByMaintenanceRequestId);
+        IReadOnlyDictionary<string, ResidentBillLookup> ResidentBillByMaintenanceRequestId);
 
     private RequestLookupContext LoadRequestLookupContext()
     {
         var buildingNames = _db.Buildings.AsNoTracking().ToDictionary(b => b.Id, b => b.Name);
         var usersById = _db.Users.AsNoTracking().ToDictionary(u => u.Id, u => u);
-        // Multiple bills can reference the same maintenance request (e.g. re-bills); keep first — do not use
-        // ToDictionary on maintenance_request_id alone or duplicate keys throw and break all list endpoints.
-        var billIdByReq = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        var billByReq = new Dictionary<string, ResidentBillLookup>(StringComparer.OrdinalIgnoreCase);
         foreach (var b in _db.Bills.AsNoTracking())
         {
             var mid = b.MaintenanceRequestId?.Trim();
             if (string.IsNullOrEmpty(mid))
                 continue;
-            if (!billIdByReq.ContainsKey(mid))
-                billIdByReq[mid] = b.BillId;
+            if (!billByReq.ContainsKey(mid))
+                billByReq[mid] = new ResidentBillLookup(
+                    b.BillId,
+                    b.ResidentNotificationSent,
+                    b.Amount,
+                    b.Type ?? "",
+                    b.DueDate);
         }
 
-        return new RequestLookupContext(buildingNames, usersById, billIdByReq);
+        return new RequestLookupContext(buildingNames, usersById, billByReq);
     }
 
     private static MaintenanceRequest MapRequest(MaintenanceRequestEntity r, RequestLookupContext ctx)
@@ -851,7 +1114,19 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
         if (string.IsNullOrEmpty(unit))
             unit = null;
 
-        ctx.BillIdByMaintenanceRequestId.TryGetValue(r.Id.Trim(), out var residentBillId);
+        string? residentBillId = null;
+        bool? residentChargeNotificationSent = null;
+        decimal? residentChargeAmount = null;
+        string? residentChargeType = null;
+        DateOnly? residentChargeDueDate = null;
+        if (ctx.ResidentBillByMaintenanceRequestId.TryGetValue(r.Id.Trim(), out var rb))
+        {
+            residentBillId = rb.BillId;
+            residentChargeNotificationSent = rb.NotificationSent;
+            residentChargeAmount = rb.Amount;
+            residentChargeType = string.IsNullOrWhiteSpace(rb.Type) ? null : rb.Type.Trim();
+            residentChargeDueDate = rb.DueDate;
+        }
 
         var lineItems = DeserializeInvoiceLineItems(r.TechnicianInvoiceLineItemsJson);
         decimal? subtotal = null;
@@ -878,6 +1153,7 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
             Priority = r.Priority ?? "Medium",
             DateCreated = r.DateCreated,
             AssignedTechnician = r.AssignedTechnician,
+            AssignedTechnicianUserId = r.AssignedTechnicianUserId,
             PhotoUrls = DeserializePhotos(r.PhotoUrlsJson),
             ResidentFeedback = string.IsNullOrWhiteSpace(r.ResidentFeedback) ? null : r.ResidentFeedback.Trim(),
             AdminResponseToResident = string.IsNullOrWhiteSpace(r.AdminResponseToResident)
@@ -889,6 +1165,17 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
             TechnicianCompletionNotes = string.IsNullOrWhiteSpace(r.TechnicianCompletionNotes)
                 ? null
                 : r.TechnicianCompletionNotes.Trim(),
+            TechnicianSiteUpdate = string.IsNullOrWhiteSpace(r.TechnicianSiteUpdate)
+                ? null
+                : r.TechnicianSiteUpdate.Trim(),
+            TechnicianMaterialsUsed = string.IsNullOrWhiteSpace(r.TechnicianMaterialsUsed)
+                ? null
+                : r.TechnicianMaterialsUsed.Trim(),
+            TechnicianExpectedReturnDate = r.TechnicianExpectedReturnDate,
+            TechnicianOfficeNotes = string.IsNullOrWhiteSpace(r.TechnicianOfficeNotes)
+                ? null
+                : r.TechnicianOfficeNotes.Trim(),
+            TechnicianSiteUpdateHistory = DeserializeSiteHistory(r.TechnicianSiteUpdateHistoryJson),
             TechnicianInvoiceUrl = string.IsNullOrWhiteSpace(r.TechnicianInvoiceUrl)
                 ? null
                 : r.TechnicianInvoiceUrl.Trim(),
@@ -917,6 +1204,10 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
             TechnicianInvoiceSubtotal = subtotal,
             TechnicianInvoiceTaxAmount = taxAmount,
             ResidentChargeBillId = string.IsNullOrWhiteSpace(residentBillId) ? null : residentBillId.Trim(),
+            ResidentChargeNotificationSent = residentChargeNotificationSent,
+            ResidentChargeAmount = residentChargeAmount,
+            ResidentChargeType = residentChargeType,
+            ResidentChargeDueDate = residentChargeDueDate,
         };
     }
 
@@ -973,13 +1264,9 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
                 : b.MaintenanceRequestId.Trim(),
             PaidAt = b.PaidAt,
             PaymentMethod = string.IsNullOrWhiteSpace(b.PaymentMethod) ? null : b.PaymentMethod.Trim(),
+            ResidentNotificationSent = b.ResidentNotificationSent,
         };
 
-    /// <summary>
-    /// Building list stats are computed: rooms from <c>units</c>, occupancy from open <c>occupancies</c>,
-    /// residents from distinct users in those occupancies, open requests from non-completed maintenance.
-    /// Legacy columns on <c>buildings</c> are not used for API output.
-    /// </summary>
     private List<Building> LoadBuildingsWithComputedStats()
     {
         var buildings = _db.Buildings.AsNoTracking().OrderBy(b => b.Id).ToList();
@@ -1009,7 +1296,6 @@ public sealed class PostgresDataStore(AppDbContext db) : IDataStore
             .GroupBy(x => x.BuildingId)
             .ToDictionary(g => g.Key, g => g.Select(x => x.UserId).Distinct().Count());
 
-        // Terminal = Completed or Declined (case-insensitive). Cannot use MaintenanceWorkflow.IsTerminal here — EF cannot translate it to SQL.
         var openReqByBuilding = _db.MaintenanceRequests.AsNoTracking()
             .Where(r =>
                 r.BuildingId != null &&

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using PropertyManager.Api.Models.Dtos;
 using PropertyManager.Api.Services;
 
@@ -48,8 +50,20 @@ public class BuildingsController(IDataStore dataStore) : ControllerBase
     [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
-        if (!dataStore.TryDeleteBuilding(id))
-            return NotFound();
-        return NoContent();
+        try
+        {
+            if (!dataStore.TryDeleteBuilding(id))
+                return NotFound();
+            return NoContent();
+        }
+        catch (DbUpdateException ex) when (IsForeignKeyConstraintViolation(ex))
+        {
+            return Conflict("Cannot delete this building while it still has rooms/units or residents assigned. Remove them first.");
+        }
+    }
+
+    private static bool IsForeignKeyConstraintViolation(DbUpdateException ex)
+    {
+        return ex.InnerException is PostgresException { SqlState: "23503" };
     }
 }

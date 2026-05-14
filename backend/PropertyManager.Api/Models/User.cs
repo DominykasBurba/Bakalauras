@@ -8,6 +8,5 @@ public sealed class User
     public required string Password { get; init; }
     public required string Role { get; init; }
     public required string Unit { get; init; }
-    /// <summary>For residents: pending_profile, pending_review, approved, declined.</summary>
     public string? ProfileStatus { get; init; }
 }

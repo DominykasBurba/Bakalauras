@@ -1,6 +1,5 @@
 namespace PropertyManager.Api.Helpers;
 
-/// <summary>Canonical maintenance request lifecycle: Requested → Registered | Declined → … → Completed (after payment).</summary>
 public static class MaintenanceWorkflow
 {
     public const string Requested = "Requested";
@@ -9,7 +8,6 @@ public static class MaintenanceWorkflow
     public const string Solved = "Solved";
     public const string Unpaid = "Unpaid";
     public const string Completed = "Completed";
-    /// <summary>Admin rejected the resident request; terminal.</summary>
     public const string Declined = "Declined";
 
     public static readonly string[] AllStatuses =
@@ -17,7 +15,6 @@ public static class MaintenanceWorkflow
         Requested, Registered, InProgress, Solved, Unpaid, Completed, Declined,
     ];
 
-    /// <summary>Returns canonical casing for a known status, or null if unknown.</summary>
     public static string? CanonicalStatus(string? raw)
     {
         if (string.IsNullOrWhiteSpace(raw))
@@ -36,7 +33,6 @@ public static class MaintenanceWorkflow
         string.Equals(status, Completed, StringComparison.OrdinalIgnoreCase) ||
         string.Equals(status, Declined, StringComparison.OrdinalIgnoreCase);
 
-    /// <summary>Resident may comment after the technician has finished (Solved onward).</summary>
     public static bool ResidentCanSubmitPostWorkFeedback(string status)
     {
         if (string.IsNullOrWhiteSpace(status))

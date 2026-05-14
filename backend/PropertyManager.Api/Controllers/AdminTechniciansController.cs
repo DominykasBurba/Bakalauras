@@ -11,7 +11,6 @@ namespace PropertyManager.Api.Controllers;
 [Authorize(Roles = "Admin")]
 public sealed class AdminTechniciansController(AppDbContext db) : ControllerBase
 {
-    /// <summary>All technicians with job counts, compliance, admin catalog assignments, and technician-offered services.</summary>
     [HttpGet]
     public async Task<ActionResult<IReadOnlyList<TechnicianDirectoryRowDto>>> List(CancellationToken cancellationToken)
     {
@@ -104,8 +103,6 @@ public sealed class AdminTechniciansController(AppDbContext db) : ControllerBase
         return Ok(rows);
     }
 
-    /// <summary>Technician names for assignment dropdowns (matches maintenance assignment by name).</summary>
-    /// <param name="catalogItemId">When set, only technicians linked to this catalog service (e.g. Plumbing).</param>
     [HttpGet("names")]
     public async Task<ActionResult<IReadOnlyList<TechnicianNameOptionDto>>> Names(
         [FromQuery] int? catalogItemId,
@@ -125,7 +122,6 @@ public sealed class AdminTechniciansController(AppDbContext db) : ControllerBase
         return Ok(list);
     }
 
-    /// <summary>Full profile, offered services, metrics — for admin detail page.</summary>
     [HttpGet("{userId:int}")]
     public async Task<ActionResult<TechnicianDetailDto>> GetById(int userId, CancellationToken cancellationToken)
     {
@@ -159,7 +155,6 @@ public sealed class AdminTechniciansController(AppDbContext db) : ControllerBase
             TechnicianCompliance.BuildWarnings(profile, today, approvedOfferedCount, true)));
     }
 
-    /// <summary>Replace which catalog services this technician is approved for (admin-managed).</summary>
     [HttpPut("{userId:int}/catalog-services")]
     public async Task<IActionResult> PutCatalogServices(
         int userId,
@@ -196,7 +191,6 @@ public sealed class AdminTechniciansController(AppDbContext db) : ControllerBase
         return NoContent();
     }
 
-    /// <summary>Create or update compliance / commercial profile.</summary>
     [HttpPut("{userId:int}/profile")]
     public async Task<ActionResult<TechnicianProfileDto>> UpsertProfile(
         int userId,
@@ -237,7 +231,6 @@ public sealed class AdminTechniciansController(AppDbContext db) : ControllerBase
         return Ok(MapProfile(fresh)!);
     }
 
-    /// <summary>Context when assigning a technician by name (capabilities + compliance warnings + metrics).</summary>
     [HttpGet("assignment-context")]
     public async Task<ActionResult<TechnicianAssignmentContextDto>> AssignmentContext(
         [FromQuery] string? name,
@@ -303,7 +296,6 @@ public sealed class AdminTechniciansController(AppDbContext db) : ControllerBase
             assignmentBlockReason));
     }
 
-    /// <summary>Approve or reject a technician-suggested service; optional link to office catalog on approve.</summary>
     [HttpPut("{userId:int}/offered-services/{id:int}/review")]
     public async Task<ActionResult<OfferedServiceResponse>> ReviewOfferedService(
         int userId,

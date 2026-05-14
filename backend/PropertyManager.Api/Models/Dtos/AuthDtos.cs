@@ -13,7 +13,6 @@ public sealed class LoginResponse
     public required string Role { get; init; }
     public required string Unit { get; init; }
     public required int UserId { get; init; }
-    /// <summary>Residents only: pending_profile | pending_review | approved | declined.</summary>
     public string? ProfileStatus { get; init; }
 }
 
@@ -76,7 +75,6 @@ public sealed class OccupantAdminRowDto
     public required string Email { get; init; }
     public int? BuildingId { get; init; }
     public string? BuildingName { get; init; }
-    /// <summary>FK to <c>units.id</c> when assigned; null if no unit yet.</summary>
     public int? UnitId { get; init; }
     public string? UnitLine { get; init; }
     public required string ProfileStatus { get; init; }
@@ -90,7 +88,6 @@ public sealed class DeclineOccupantRequest
     public required string Comment { get; init; }
 }
 
-/// <summary>Full occupant record for admin detail view (GET by id).</summary>
 public sealed class OccupantAdminDetailDto
 {
     public required int Id { get; init; }
@@ -115,6 +112,5 @@ public sealed class UpdateOccupantRequest
     public required string Name { get; init; }
     public required string Email { get; init; }
     public int? BuildingId { get; init; }
-    /// <summary>If set, replaces the password; omit or empty to leave unchanged.</summary>
     public string? Password { get; init; }
 }

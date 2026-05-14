@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Npgsql;
 using PropertyManager.Api.Data;
 using PropertyManager.Api.Helpers;
 using PropertyManager.Api.Services;
@@ -21,7 +22,6 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>
     {
-        // Dev: Vite may use 5174+ if 5173 is taken; any localhost origin avoids "Failed to fetch" from CORS.
         if (builder.Environment.IsDevelopment())
         {
             policy.SetIsOriginAllowed(static origin =>
@@ -43,6 +43,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 builder.Services.AddScoped<IDataStore, PostgresDataStore>();
 builder.Services.AddSingleton<JwtTokenService>();
+if (!builder.Environment.IsEnvironment("Testing"))
+    builder.Services.AddHostedService<BillDueReminderHostedService>();
 
 var jwtKey = builder.Configuration["Jwt:Key"] ?? "local-dev-key-change-this";
 var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
@@ -50,7 +52,6 @@ var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        // Keep JWT claim types as issued (e.g. "sub") so User claims match JwtTokenService.
         options.MapInboundClaims = false;
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -70,40 +71,24 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// Ensure DB schema for optional notification category (idempotent; no-op if psql migration already applied).
-using (var scope = app.Services.CreateScope())
+if (!app.Environment.IsEnvironment("Testing"))
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
-    var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
-    try
+    using (var scope = app.Services.CreateScope())
     {
-        db.Database.ExecuteSqlRaw(
-            """ALTER TABLE notifications ADD COLUMN IF NOT EXISTS category VARCHAR(80) NULL;""");
-    }
-    catch (Exception ex)
-    {
-        logger.LogWarning(ex, "Could not ensure notifications.category column exists.");
-    }
-
-    foreach (var sql in PropertyPortfolioMigration.SqlStatements)
-    {
+        var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+        var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
         try
         {
-            db.Database.ExecuteSqlRaw(sql);
+            db.Database.ExecuteSqlRaw(
+                """ALTER TABLE notifications ADD COLUMN IF NOT EXISTS category VARCHAR(80) NULL;""");
         }
         catch (Exception ex)
         {
-            logger.LogWarning(ex, "Property portfolio DDL step skipped or failed: {Sql}", sql[..Math.Min(80, sql.Length)]);
+            logger.LogWarning(ex, "Could not ensure notifications.category column exists.");
         }
-    }
 
-    if (app.Environment.IsDevelopment())
-        DevelopmentDatabaseBootstrap.ApplyDevelopmentSeedIfEmpty(db, configuration, app.Environment, logger);
-
-    if (app.Environment.IsDevelopment() && db.Buildings.AsNoTracking().Any())
-    {
-        foreach (var sql in DemoPortfolioSeed.SqlStatements)
+        foreach (var sql in PropertyPortfolioMigration.SqlStatements)
         {
             try
             {
@@ -111,11 +96,50 @@ using (var scope = app.Services.CreateScope())
             }
             catch (Exception ex)
             {
-                logger.LogWarning(ex, "Demo portfolio seed step skipped or failed");
+                logger.LogWarning(ex, "Property portfolio DDL step skipped or failed: {Sql}", sql[..Math.Min(80, sql.Length)]);
             }
         }
 
-        logger.LogInformation("Demo portfolio seed checked (development).");
+        if (app.Environment.IsDevelopment())
+            DevelopmentDatabaseBootstrap.ApplyDevelopmentSeedIfEmpty(db, configuration, app.Environment, logger);
+
+        if (app.Environment.IsDevelopment() && db.Buildings.AsNoTracking().Any())
+        {
+            foreach (var sql in DemoPortfolioSeed.SqlStatements)
+            {
+                try
+                {
+                    db.Database.ExecuteSqlRaw(sql);
+                }
+                catch (Exception ex)
+                {
+                    logger.LogWarning(ex, "Demo portfolio seed step skipped or failed");
+                }
+            }
+
+            logger.LogInformation("Demo portfolio seed checked (development).");
+        }
+
+        if (app.Environment.IsDevelopment())
+        {
+            try
+            {
+                var csb = new NpgsqlConnectionStringBuilder(ConnectionStringResolver.Resolve(configuration));
+                var userCount = db.Users.AsNoTracking().Count();
+                var sample = db.Users.AsNoTracking().OrderBy(u => u.Id).Take(5).Select(u => u.Email).ToList();
+                logger.LogInformation(
+                    "PostgreSQL: database {Database} on {Host}:{Port}; Users={UserCount}; Sample emails: {Sample}",
+                    csb.Database,
+                    csb.Host,
+                    csb.Port,
+                    userCount,
+                    sample.Count == 0 ? "(none)" : string.Join(", ", sample));
+            }
+            catch (Exception ex)
+            {
+                logger.LogWarning(ex, "Could not log PostgreSQL login diagnostics.");
+            }
+        }
     }
 }
 
@@ -129,9 +153,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// In dev the SPA calls http://localhost:5076. HTTPS redirection would 307 to another origin/port
-// and browsers drop the Authorization header on that redirect → 401 on every API call.
-if (!app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment() && !app.Environment.IsEnvironment("Testing"))
     app.UseHttpsRedirection();
 
 app.UseCors("Frontend");

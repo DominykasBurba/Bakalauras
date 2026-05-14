@@ -2,7 +2,6 @@ using PropertyManager.Api.Data;
 
 namespace PropertyManager.Api.Helpers;
 
-/// <summary>Compliance and readiness messages for assigning technicians.</summary>
 public static class TechnicianCompliance
 {
     public static IReadOnlyList<string> BuildWarnings(
@@ -62,9 +61,6 @@ public static class TechnicianCompliance
         return w;
     }
 
-    /// <summary>
-    /// When a technician profile exists, blocks assignment if license, COI, or workers comp is past expiry.
-    /// </summary>
     public static string? GetAssignmentBlockReason(TechnicianProfileEntity? profile, DateOnly todayUtc)
     {
         if (profile is null)
@@ -78,7 +74,6 @@ public static class TechnicianCompliance
         return null;
     }
 
-    /// <summary>Rough health for directory list badges: ok | warn | critical</summary>
     public static string ComplianceHealth(TechnicianProfileEntity? profile, DateOnly todayUtc)
     {
         if (profile is null)

@@ -11,7 +11,6 @@ namespace PropertyManager.Api.Controllers;
 [Authorize(Roles = "Admin")]
 public sealed class OccupanciesController(AppDbContext db) : ControllerBase
 {
-    /// <summary>List occupancies; filter by building, optionally only current (no end date).</summary>
     [HttpGet("api/occupancies")]
     public async Task<IActionResult> List([FromQuery] int? buildingId, [FromQuery] bool? currentOnly, CancellationToken cancellationToken)
     {
@@ -55,7 +54,6 @@ public sealed class OccupanciesController(AppDbContext db) : ControllerBase
         await using var tx = await db.Database.BeginTransactionAsync(cancellationToken);
         try
         {
-            // One query: end any open stay on this unit or for this resident (cannot hold two units at once).
             var end = DateOnly.FromDateTime(DateTime.UtcNow);
             var toClose = await db.Occupancies
                 .Where(o => o.EndedAt == null && (o.UnitId == unitId || o.UserId == body.UserId))

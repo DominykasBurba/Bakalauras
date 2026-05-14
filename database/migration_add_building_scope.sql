@@ -1,6 +1,3 @@
--- Add building scope for existing DBs (run after buildings + users exist)
--- Safe to run multiple times where supported
-
 ALTER TABLE users ADD COLUMN IF NOT EXISTS building_id INT REFERENCES buildings(id) ON DELETE SET NULL;
 ALTER TABLE maintenance_requests ADD COLUMN IF NOT EXISTS building_id INT REFERENCES buildings(id) ON DELETE SET NULL;
 CREATE INDEX IF NOT EXISTS idx_maintenance_building ON maintenance_requests(building_id);

@@ -16,15 +16,12 @@ namespace PropertyManager.Api.Controllers;
 public sealed class AuthController(AppDbContext db, JwtTokenService jwtTokenService) : ControllerBase
 {
     [HttpPost("login")]
-    [SwaggerOperation(
-        Summary = "Login",
-        Description = "Demo accounts: resident@local.test / Password123! or admin@local.test / Password123!.")]
+    [SwaggerOperation(Summary = "Login")]
     public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest request, CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrEmpty(request.Password))
             return Unauthorized(new { message = "Invalid credentials" });
 
-        // EF Core cannot translate string.Equals(..., StringComparison); use SQL-friendly LOWER match.
         var emailNorm = request.Email.Trim().ToLowerInvariant();
         var entity = await db.Users.FirstOrDefaultAsync(
             u => u.Email.ToLower() == emailNorm,
@@ -91,7 +88,6 @@ public sealed class AuthController(AppDbContext db, JwtTokenService jwtTokenServ
         });
     }
 
-    /// <summary>Change password for the signed-in user (any role).</summary>
     [HttpPut("password")]
     [Authorize]
     public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest body, CancellationToken cancellationToken)

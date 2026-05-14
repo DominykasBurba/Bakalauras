@@ -1,53 +1,38 @@
-import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
-import type { MaintenanceRequest } from '../types'
-import {
-  type MaintenanceSortKey,
-  sortMaintenanceRequests,
-} from '../utils/maintenanceSort'
-
+import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import type { MaintenanceRequest } from '../types';
+import { type MaintenanceSortKey, sortMaintenanceRequests, } from '../utils/maintenanceSort';
 type Props = {
-  requests: MaintenanceRequest[]
-  loading: boolean
-  /** When set, only first N rows after sort/search */
-  maxRows?: number
-}
-
+    requests: MaintenanceRequest[];
+    loading: boolean;
+    maxRows?: number;
+};
 function pillClassStatus(status: string): string {
-  return `status-pill ${status.toLowerCase().replace(/\s+/g, '-')}`
+    return `status-pill ${status.toLowerCase().replace(/\s+/g, '-')}`;
 }
-
 function pillClassPriority(priority: string): string {
-  return `status-pill priority-${priority.toLowerCase()}`
+    return `status-pill priority-${priority.toLowerCase()}`;
 }
-
 export function MaintenanceRequestsTable({ requests, loading, maxRows }: Props) {
-  const [sortKey, setSortKey] = useState<MaintenanceSortKey>('dateCreated')
-  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
-
-  const sorted = useMemo(
-    () => sortMaintenanceRequests(requests, sortKey, sortDir),
-    [requests, sortKey, sortDir],
-  )
-
-  const rows = maxRows != null ? sorted.slice(0, maxRows) : sorted
-
-  function toggleSort(key: MaintenanceSortKey) {
-    if (sortKey === key) {
-      setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'))
-    } else {
-      setSortKey(key)
-      setSortDir(key === 'dateCreated' ? 'desc' : 'asc')
+    const [sortKey, setSortKey] = useState<MaintenanceSortKey>('dateCreated');
+    const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
+    const sorted = useMemo(() => sortMaintenanceRequests(requests, sortKey, sortDir), [requests, sortKey, sortDir]);
+    const rows = maxRows != null ? sorted.slice(0, maxRows) : sorted;
+    function toggleSort(key: MaintenanceSortKey) {
+        if (sortKey === key) {
+            setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
+        }
+        else {
+            setSortKey(key);
+            setSortDir(key === 'dateCreated' ? 'desc' : 'asc');
+        }
     }
-  }
-
-  function sortIndicator(key: MaintenanceSortKey): string {
-    if (sortKey !== key) return '↕'
-    return sortDir === 'asc' ? '↑' : '↓'
-  }
-
-  return (
-    <div className="table-wrapper mr-table-wrap">
+    function sortIndicator(key: MaintenanceSortKey): string {
+        if (sortKey !== key)
+            return '↕';
+        return sortDir === 'asc' ? '↑' : '↓';
+    }
+    return (<div className="table-wrapper mr-table-wrap">
       <table className="data-table mr-table">
         <thead>
           <tr>
@@ -55,50 +40,29 @@ export function MaintenanceRequestsTable({ requests, loading, maxRows }: Props) 
             <th>Title</th>
             <th>Building</th>
             <th>
-              <button
-                type="button"
-                className="th-sort-btn"
-                onClick={() => toggleSort('status')}
-                aria-sort={
-                  sortKey === 'status'
-                    ? sortDir === 'asc'
-                      ? 'ascending'
-                      : 'descending'
-                    : 'none'
-                }
-              >
+              <button type="button" className="th-sort-btn" onClick={() => toggleSort('status')} aria-sort={sortKey === 'status'
+            ? sortDir === 'asc'
+                ? 'ascending'
+                : 'descending'
+            : 'none'}>
                 Status <span className="th-sort-icon">{sortIndicator('status')}</span>
               </button>
             </th>
             <th>
-              <button
-                type="button"
-                className="th-sort-btn"
-                onClick={() => toggleSort('priority')}
-                aria-sort={
-                  sortKey === 'priority'
-                    ? sortDir === 'asc'
-                      ? 'ascending'
-                      : 'descending'
-                    : 'none'
-                }
-              >
+              <button type="button" className="th-sort-btn" onClick={() => toggleSort('priority')} aria-sort={sortKey === 'priority'
+            ? sortDir === 'asc'
+                ? 'ascending'
+                : 'descending'
+            : 'none'}>
                 Priority <span className="th-sort-icon">{sortIndicator('priority')}</span>
               </button>
             </th>
             <th>
-              <button
-                type="button"
-                className="th-sort-btn"
-                onClick={() => toggleSort('dateCreated')}
-                aria-sort={
-                  sortKey === 'dateCreated'
-                    ? sortDir === 'asc'
-                      ? 'ascending'
-                      : 'descending'
-                    : 'none'
-                }
-              >
+              <button type="button" className="th-sort-btn" onClick={() => toggleSort('dateCreated')} aria-sort={sortKey === 'dateCreated'
+            ? sortDir === 'asc'
+                ? 'ascending'
+                : 'descending'
+            : 'none'}>
                 Started <span className="th-sort-icon">{sortIndicator('dateCreated')}</span>
               </button>
             </th>
@@ -107,21 +71,15 @@ export function MaintenanceRequestsTable({ requests, loading, maxRows }: Props) 
           </tr>
         </thead>
         <tbody>
-          {loading ? (
-            <tr>
+          {loading ? (<tr>
               <td colSpan={8} className="mr-table-loading">
                 Loading…
               </td>
-            </tr>
-          ) : rows.length === 0 ? (
-            <tr>
+            </tr>) : rows.length === 0 ? (<tr>
               <td colSpan={8} className="muted">
                 No requests in this view.
               </td>
-            </tr>
-          ) : (
-            rows.map((r) => (
-              <tr key={r.id}>
+            </tr>) : (rows.map((r) => (<tr key={r.id}>
                 <td>
                   <Link to={`/work-order/${r.id}`} className="mr-id-link">
                     {r.id}
@@ -142,11 +100,8 @@ export function MaintenanceRequestsTable({ requests, loading, maxRows }: Props) 
                     Open
                   </Link>
                 </td>
-              </tr>
-            ))
-          )}
+              </tr>)))}
         </tbody>
       </table>
-    </div>
-  )
+    </div>);
 }

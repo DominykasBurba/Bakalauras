@@ -8,12 +8,10 @@ using PropertyManager.Api.Models.Dtos;
 namespace PropertyManager.Api.Controllers;
 
 [ApiController]
-// Explicit route: default [controller] would be "ScheduledMaintenance", but the SPA calls /api/scheduled-maintenance (kebab-case, matches admin routes).
 [Route("api/scheduled-maintenance")]
 [Authorize]
 public sealed class ScheduledMaintenanceController(AppDbContext db) : ControllerBase
 {
-    /// <summary>Residents: upcoming maintenance announcements for their building.</summary>
     [HttpGet]
     public async Task<IActionResult> ListMine(CancellationToken cancellationToken)
     {

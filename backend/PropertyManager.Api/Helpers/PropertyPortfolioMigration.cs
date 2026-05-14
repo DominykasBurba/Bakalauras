@@ -1,6 +1,5 @@
 namespace PropertyManager.Api.Helpers;
 
-/// <summary>Idempotent DDL for units, building images, occupancies, users.unit_id.</summary>
 public static class PropertyPortfolioMigration
 {
     public static readonly string[] SqlStatements =
@@ -44,7 +43,6 @@ public static class PropertyPortfolioMigration
         CREATE UNIQUE INDEX IF NOT EXISTS ux_occupancies_one_active_per_unit
             ON occupancies(unit_id) WHERE ended_at IS NULL;
         """,
-        // At most one open-ended occupancy per resident (enforced after cleaning legacy duplicates).
         """
         UPDATE occupancies o
         SET ended_at = GREATEST(o.started_at, CURRENT_DATE)
@@ -79,6 +77,12 @@ public static class PropertyPortfolioMigration
         """ALTER TABLE maintenance_requests ADD COLUMN IF NOT EXISTS admin_response_to_resident TEXT NULL;""",
         """ALTER TABLE maintenance_requests ADD COLUMN IF NOT EXISTS admin_decline_reason TEXT NULL;""",
         """ALTER TABLE maintenance_requests ADD COLUMN IF NOT EXISTS technician_completion_notes TEXT NULL;""",
+        """ALTER TABLE maintenance_requests ADD COLUMN IF NOT EXISTS technician_site_update TEXT NULL;""",
+        """ALTER TABLE maintenance_requests ADD COLUMN IF NOT EXISTS technician_materials_used TEXT NULL;""",
+        """ALTER TABLE maintenance_requests ADD COLUMN IF NOT EXISTS technician_expected_return_date DATE NULL;""",
+        """ALTER TABLE maintenance_requests ADD COLUMN IF NOT EXISTS technician_office_notes TEXT NULL;""",
+        """ALTER TABLE maintenance_requests ADD COLUMN IF NOT EXISTS assigned_technician_user_id INT NULL REFERENCES users(id) ON DELETE SET NULL;""",
+        """ALTER TABLE maintenance_requests ADD COLUMN IF NOT EXISTS technician_site_update_history JSONB NOT NULL DEFAULT '[]'::jsonb;""",
         """ALTER TABLE maintenance_requests ADD COLUMN IF NOT EXISTS technician_invoice_url TEXT NULL;""",
         """ALTER TABLE maintenance_requests ADD COLUMN IF NOT EXISTS technician_invoice_amount NUMERIC(12, 2) NULL;""",
         """ALTER TABLE maintenance_requests ADD COLUMN IF NOT EXISTS technician_invoice_notes TEXT NULL;""",
@@ -144,7 +148,6 @@ public static class PropertyPortfolioMigration
             updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         );
         """,
-        // Legacy unit fees table only — do NOT drop service_catalog_* here; that would erase catalog data on every API restart.
         """DROP TABLE IF EXISTS unit_service_fees;""",
         """
         CREATE TABLE IF NOT EXISTS service_catalog_items (
@@ -170,5 +173,11 @@ public static class PropertyPortfolioMigration
         ALTER TABLE technician_offered_services ADD COLUMN IF NOT EXISTS mapped_catalog_item_id INT NULL
             REFERENCES service_catalog_items(id) ON DELETE SET NULL;
         """,
+        """
+        ALTER TABLE bills ADD COLUMN IF NOT EXISTS resident_notification_sent BOOLEAN NOT NULL DEFAULT false;
+        """,
+        """ALTER TABLE bills ALTER COLUMN resident_notification_sent SET DEFAULT false;""",
+        """ALTER TABLE bills ADD COLUMN IF NOT EXISTS due_reminder_7d_sent BOOLEAN NOT NULL DEFAULT false;""",
+        """ALTER TABLE bills ADD COLUMN IF NOT EXISTS due_reminder_3d_sent BOOLEAN NOT NULL DEFAULT false;""",
     ];
 }

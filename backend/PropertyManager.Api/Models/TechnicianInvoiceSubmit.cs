@@ -1,6 +1,5 @@
 namespace PropertyManager.Api.Models;
 
-/// <summary>Line on a technician invoice (labor, parts, or other).</summary>
 public sealed class TechnicianInvoiceLineItem
 {
     public string Kind { get; set; } = "other";
@@ -9,7 +8,6 @@ public sealed class TechnicianInvoiceLineItem
     public decimal UnitPrice { get; set; }
 }
 
-/// <summary>Payload when a technician saves invoice details before marking work solved.</summary>
 public sealed class TechnicianInvoiceSubmit
 {
     public required string InvoiceUrl { get; init; }
@@ -22,7 +20,6 @@ public sealed class TechnicianInvoiceSubmit
     public string? SignatureAcknowledgment { get; init; }
 }
 
-/// <summary>Admin tracking of payment to the vendor (outside this app — record-keeping only).</summary>
 public sealed class TechnicianPayoutSubmit
 {
     public string? Status { get; init; }

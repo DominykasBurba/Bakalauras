@@ -41,9 +41,10 @@ public sealed class PropertyOverviewController(AppDbContext db) : ControllerBase
             imgQ = imgQ.Where(i => i.BuildingId == ib);
         var imgCount = await imgQ.CountAsync(cancellationToken);
 
+        var completedLc = MaintenanceWorkflow.Completed.ToLowerInvariant();
+        var declinedLc = MaintenanceWorkflow.Declined.ToLowerInvariant();
         var reqQ = db.MaintenanceRequests.AsNoTracking().Where(r =>
-            !string.Equals(r.Status, MaintenanceWorkflow.Completed, StringComparison.OrdinalIgnoreCase) &&
-            !string.Equals(r.Status, MaintenanceWorkflow.Declined, StringComparison.OrdinalIgnoreCase));
+            r.Status.ToLower() != completedLc && r.Status.ToLower() != declinedLc);
         if (buildingId is int rb)
             reqQ = reqQ.Where(r => r.BuildingId == rb);
         var openReq = await reqQ.CountAsync(cancellationToken);

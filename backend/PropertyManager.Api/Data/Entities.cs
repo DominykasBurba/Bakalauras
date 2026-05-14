@@ -31,7 +31,6 @@ public sealed class UserEntity
     [Column("unit_id")]
     public int? UnitId { get; set; }
 
-    /// <summary>pending_profile | pending_review | approved | declined</summary>
     [Column("profile_status")]
     public string ProfileStatus { get; set; } = ResidentProfileStatus.Approved;
 
@@ -156,7 +155,6 @@ public sealed class OccupancyEntity
     [Column("ended_at")]
     public DateOnly? EndedAt { get; set; }
 
-    /// <summary>Optional planned lease end for an active stay (<see cref="EndedAt"/> null).</summary>
     [Column("lease_end_date")]
     public DateOnly? LeaseEndDate { get; set; }
 }
@@ -192,6 +190,9 @@ public sealed class MaintenanceRequestEntity
     [Column("assigned_technician")]
     public string AssignedTechnician { get; set; } = "Not assigned";
 
+    [Column("assigned_technician_user_id")]
+    public int? AssignedTechnicianUserId { get; set; }
+
     [Column("photo_urls", TypeName = "jsonb")]
     public string PhotoUrlsJson { get; set; } = "[]";
 
@@ -206,6 +207,21 @@ public sealed class MaintenanceRequestEntity
 
     [Column("technician_completion_notes")]
     public string? TechnicianCompletionNotes { get; set; }
+
+    [Column("technician_site_update")]
+    public string? TechnicianSiteUpdate { get; set; }
+
+    [Column("technician_materials_used")]
+    public string? TechnicianMaterialsUsed { get; set; }
+
+    [Column("technician_expected_return_date")]
+    public DateOnly? TechnicianExpectedReturnDate { get; set; }
+
+    [Column("technician_office_notes")]
+    public string? TechnicianOfficeNotes { get; set; }
+
+    [Column("technician_site_update_history", TypeName = "jsonb")]
+    public string TechnicianSiteUpdateHistoryJson { get; set; } = "[]";
 
     [Column("technician_invoice_url")]
     public string? TechnicianInvoiceUrl { get; set; }
@@ -300,6 +316,15 @@ public sealed class BillEntity
 
     [Column("payment_method")]
     public string? PaymentMethod { get; set; }
+
+    [Column("resident_notification_sent")]
+    public bool ResidentNotificationSent { get; set; }
+
+    [Column("due_reminder_7d_sent")]
+    public bool DueReminder7dSent { get; set; }
+
+    [Column("due_reminder_3d_sent")]
+    public bool DueReminder3dSent { get; set; }
 }
 
 [Table("scheduled_maintenance")]
@@ -350,7 +375,6 @@ public sealed class TechnicianOfferedServiceEntity
     [Column("created_at")]
     public DateTime CreatedAt { get; set; }
 
-    /// <summary>pending_review | approved | rejected</summary>
     [Column("review_status")]
     public string ReviewStatus { get; set; } = OfferedServiceReviewStatus.Approved;
 
@@ -361,7 +385,6 @@ public sealed class TechnicianOfferedServiceEntity
     public int? MappedCatalogItemId { get; set; }
 }
 
-/// <summary>Admin-managed general services (e.g. Plumbing, HVAC) for assigning technicians and filtering.</summary>
 [Table("service_catalog_items")]
 public sealed class ServiceCatalogItemEntity
 {
@@ -392,7 +415,6 @@ public sealed class TechnicianServiceCatalogLinkEntity
     public int CatalogItemId { get; set; }
 }
 
-/// <summary>Admin-managed compliance and commercial fields for users with role Technician (one row per technician).</summary>
 [Table("technician_profiles")]
 public sealed class TechnicianProfileEntity
 {
@@ -403,7 +425,6 @@ public sealed class TechnicianProfileEntity
     [Column("company_name")]
     public string? CompanyName { get; set; }
 
-    /// <summary>w2 | independent_contractor | vendor_company</summary>
     [Column("contractor_type")]
     public string? ContractorType { get; set; }
 

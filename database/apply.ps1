@@ -1,9 +1,3 @@
-# Apply schema + seed to PostgreSQL (Windows PowerShell)
-# Requires: psql (on PATH, or standard install under Program Files\PostgreSQL)
-# Usage:
-#   .\apply.ps1
-#   $env:DATABASE_URL = "postgresql://postgres:PASSWORD@localhost:5432/property_management"; .\apply.ps1
-
 param(
     [string] $DatabaseUrl = $env:DATABASE_URL
 )

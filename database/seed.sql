@@ -1,14 +1,3 @@
--- Property Manager — seed data (realistic demo)
--- Password for all accounts: Password123!
--- Run after schema.sql
---
--- Portfolio (units, images, occupancies) is applied automatically when you run the API
--- in Development (see Helpers/DemoPortfolioSeed.cs). Requires this seed.sql first.
---
--- Building A–E map to buildings 1–5 (The Meridian … Bay View Towers).
--- Counts: 1 admin, 10 residents (id 2–11), 5 technicians (id 12–16)
---         12 buildings, 12 maintenance requests, 12 notifications, 12 bills
-
 BEGIN;
 
 INSERT INTO buildings (name, address, total_units, occupied_units, residents_count, open_requests) VALUES
@@ -26,22 +15,28 @@ INSERT INTO buildings (name, address, total_units, occupied_units, residents_cou
   ('Metro Station Flats', '50 Transit Plaza, Philadelphia, PA', 144, 138, 302, 16);
 
 INSERT INTO users (id, name, email, password, role, unit, building_id) VALUES
-  (1, 'Admin User', 'admin@local.test', 'Password123!', 'Admin', 'HQ', NULL),
-  (2, 'Sarah Chen', 'resident@local.test', 'Password123!', 'Resident', 'Building A, Unit 204', 1),
-  (3, 'Marcus Webb', 'resident02@local.test', 'Password123!', 'Resident', 'Building A, Unit 312', 1),
-  (4, 'Priya Patel', 'resident03@local.test', 'Password123!', 'Resident', 'Building B, Unit 108', 2),
-  (5, 'Diego Alvarez', 'resident04@local.test', 'Password123!', 'Resident', 'Building B, Unit 215', 2),
-  (6, 'Emily Foster', 'resident05@local.test', 'Password123!', 'Resident', 'Building C, Unit 402', 3),
-  (7, 'James Okonkwo', 'resident06@local.test', 'Password123!', 'Resident', 'Building C, Unit 505', 3),
-  (8, 'Nina Kowalski', 'resident07@local.test', 'Password123!', 'Resident', 'Building A, Unit 118', 1),
-  (9, 'Oliver Hughes', 'resident08@local.test', 'Password123!', 'Resident', 'Building D, Unit 220', 4),
-  (10, 'Aisha Rahman', 'resident09@local.test', 'Password123!', 'Resident', 'Building D, Unit 331', 4),
-  (11, 'Tom Brennan', 'resident10@local.test', 'Password123!', 'Resident', 'Building E, Penthouse 1', 5),
-  (12, 'John Smith', 'tech01@local.test', 'Password123!', 'Technician', 'Service — North', NULL),
-  (13, 'Maria Garcia', 'tech02@local.test', 'Password123!', 'Technician', 'Service — North', NULL),
-  (14, 'David Lee', 'tech03@local.test', 'Password123!', 'Technician', 'Service — South', NULL),
-  (15, 'Alex Rivera', 'tech04@local.test', 'Password123!', 'Technician', 'Service — South', NULL),
-  (16, 'Jordan Kim', 'tech05@local.test', 'Password123!', 'Technician', 'Service — Central', NULL);
+  (1, 'Admin User', 'admin@gmail.com', 'Password123!', 'Admin', 'HQ', NULL),
+  (2, 'Sarah Chen', 'resident@gmail.com', 'Password123!', 'Resident', 'Building A, Unit 204', 1),
+  (3, 'Marcus Webb', 'resident02@gmail.com', 'Password123!', 'Resident', 'Building A, Unit 312', 1),
+  (4, 'Priya Patel', 'resident03@gmail.com', 'Password123!', 'Resident', 'Building B, Unit 108', 2),
+  (5, 'Diego Alvarez', 'resident04@gmail.com', 'Password123!', 'Resident', 'Building B, Unit 215', 2),
+  (6, 'Emily Foster', 'resident05@gmail.com', 'Password123!', 'Resident', 'Building C, Unit 402', 3),
+  (7, 'James Okonkwo', 'resident06@gmail.com', 'Password123!', 'Resident', 'Building C, Unit 505', 3),
+  (8, 'Nina Kowalski', 'resident07@gmail.com', 'Password123!', 'Resident', 'Building A, Unit 118', 1),
+  (9, 'Oliver Hughes', 'resident08@gmail.com', 'Password123!', 'Resident', 'Building D, Unit 220', 4),
+  (10, 'Aisha Rahman', 'resident09@gmail.com', 'Password123!', 'Resident', 'Building D, Unit 331', 4),
+  (11, 'Tom Brennan', 'resident10@gmail.com', 'Password123!', 'Resident', 'Building E, Penthouse 1', 5),
+  (12, 'John Smith', 'tech01@gmail.com', 'Password123!', 'Technician', 'Service — North', NULL),
+  (13, 'Maria Garcia', 'tech02@gmail.com', 'Password123!', 'Technician', 'Service — North', NULL),
+  (14, 'David Lee', 'tech03@gmail.com', 'Password123!', 'Technician', 'Service — South', NULL),
+  (15, 'Alex Rivera', 'tech04@gmail.com', 'Password123!', 'Technician', 'Service — South', NULL),
+  (16, 'Jordan Kim', 'tech05@gmail.com', 'Password123!', 'Technician', 'Service — Central', NULL),
+  (17, 'Hannah Okada', 'resident11@gmail.com', 'Password123!', 'Resident', 'Maple Row, Unit A1', 6),
+  (18, 'Chris O''Neil', 'resident12@gmail.com', 'Password123!', 'Resident', 'Summit Place, Unit A1', 7),
+  (19, 'Rebecca Stone', 'resident13@gmail.com', 'Password123!', 'Resident', 'Oak & Fourth, Unit B1', 8),
+  (20, 'Kevin Mugo', 'resident14@gmail.com', 'Password123!', 'Resident', 'The Foundry, Unit A2', 9),
+  (21, 'Laura Whitaker', 'resident15@gmail.com', 'Password123!', 'Resident', 'Garden Court, Unit A1', 10),
+  (22, 'Samir Haddad', 'resident16@gmail.com', 'Password123!', 'Resident', 'Lakeshore 9, Unit A1', 11);
 
 SELECT setval(pg_get_serial_sequence('users', 'id'), (SELECT MAX(id) FROM users));
 SELECT setval(pg_get_serial_sequence('buildings', 'id'), (SELECT MAX(id) FROM buildings));
@@ -58,7 +53,35 @@ INSERT INTO maintenance_requests (id, created_by_user_id, building_id, title, de
   ('REQ-009', 5, 2, 'Broken cabinet hinge', 'Upper kitchen cabinet door sagging.', 'Completed', 'Low', '2026-02-01', 'Maria Garcia', '[]'::jsonb),
   ('REQ-010', 6, 3, 'Intercom static', 'Cannot hear visitors clearly from lobby.', 'In Progress', 'Medium', '2026-02-25', 'David Lee', '[]'::jsonb),
   ('REQ-011', 7, 3, 'Window seal draft', 'Cold draft from living room window.', 'Registered', 'Medium', '2026-03-12', 'Not assigned', '[]'::jsonb),
-  ('REQ-012', 8, 1, 'Laundry room dryer', 'Dryer runs but clothes stay damp after full cycle.', 'Registered', 'Medium', '2026-03-14', 'Alex Rivera', '[]'::jsonb);
+  ('REQ-012', 8, 1, 'Laundry room dryer', 'Dryer runs but clothes stay damp after full cycle.', 'Registered', 'Medium', '2026-03-14', 'Alex Rivera', '[]'::jsonb),
+  ('REQ-019', 2, 1, 'Lobby bench loose bolt', 'Front desk seating wobbles — safety concern for elderly visitors.', 'Registered', 'Medium', '2026-03-16', 'Not assigned', '[]'::jsonb),
+  ('REQ-020', 3, 1, 'Bike storage combo lock', 'Hasp on rack B7 won’t latch.', 'In Progress', 'Low', '2026-03-17', 'Jordan Kim', '[]'::jsonb),
+  ('REQ-021', 4, 2, 'Guest suite HVAC filter', 'Filter overdue per sticker — request replacement.', 'Requested', 'Low', '2026-03-11', 'Maria Garcia', '[]'::jsonb),
+  ('REQ-022', 5, 2, 'Stairwell L paint scuff', 'Heavy cart damage on landing 3.', 'Registered', 'Low', '2026-03-19', 'Not assigned', '[]'::jsonb),
+  ('REQ-023', 6, 3, 'Parcel room camera blind spot', 'Shelf column blocks view of lower lockers.', 'Registered', 'High', '2026-03-20', 'Not assigned', '[]'::jsonb),
+  ('REQ-024', 7, 3, 'Rooftop access door closer', 'Door slams — adjust hydraulic closer.', 'In Progress', 'Medium', '2026-03-08', 'Alex Rivera', '[]'::jsonb),
+  ('REQ-025', 8, 1, 'Storage cage padlock seized', 'Cannot open winter gear bin.', 'Completed', 'Low', '2026-02-14', 'David Lee', '[]'::jsonb),
+  ('REQ-026', 9, 4, 'Balcony railing condensation drip', 'Water tracks down facade after AC cycle.', 'Registered', 'Medium', '2026-03-21', 'John Smith', '[]'::jsonb),
+  ('REQ-027', 10, 4, 'Dog wash station drain slow', 'Backup after 2 minutes of use.', 'In Progress', 'Medium', '2026-03-09', 'Maria Garcia', '[]'::jsonb),
+  ('REQ-028', 11, 5, 'Concierge desk ethernet flap', 'Port drops link when cable moved.', 'Registered', 'Low', '2026-03-22', 'Not assigned', '[]'::jsonb),
+  ('REQ-029', 2, 6, 'Compost chute odor', 'Weekly deep clean requested.', 'Requested', 'Medium', '2026-03-07', 'Not assigned', '[]'::jsonb),
+  ('REQ-030', 3, 7, 'Meeting room projector color cast', 'Presentations skew magenta.', 'In Progress', 'Low', '2026-03-12', 'David Lee', '[]'::jsonb),
+  ('REQ-031', 4, 8, 'Lobby piano tuning', 'Annual maintenance due.', 'Registered', 'Low', '2026-03-23', 'Not assigned', '[]'::jsonb),
+  ('REQ-032', 5, 9, 'Loading dock bumper torn', 'Truck dock pad hanging loose.', 'Registered', 'High', '2026-03-24', 'Jordan Kim', '[]'::jsonb),
+  ('REQ-033', 6, 10, 'Courtyard fountain low flow', 'Pump sounds strained.', 'In Progress', 'Medium', '2026-03-13', 'John Smith', '[]'::jsonb),
+  ('REQ-034', 7, 11, 'Reading room window tint bubble', 'Sun glare on west row.', 'Registered', 'Low', '2026-03-25', 'Not assigned', '[]'::jsonb),
+  ('REQ-035', 8, 12, 'Transit display stale data', 'Next-train widget stuck on Friday schedule.', 'Requested', 'Medium', '2026-03-26', 'Alex Rivera', '[]'::jsonb),
+  ('REQ-036', 9, 1, 'Parking P3 section light out', 'Row H dark — safety issue at night.', 'Registered', 'High', '2026-03-10', 'Not assigned', '[]'::jsonb),
+  ('REQ-037', 10, 2, 'Fitness towel dispenser jam', 'Spring mechanism failed.', 'Completed', 'Low', '2026-02-20', 'Maria Garcia', '[]'::jsonb),
+  ('REQ-038', 11, 3, 'Co-working printer streaks', 'Fuser may need service.', 'In Progress', 'Medium', '2026-03-14', 'David Lee', '[]'::jsonb),
+  ('REQ-039', 2, 4, 'Elevator cab scratch panel', 'Replace brushed panel NE corner.', 'Registered', 'Low', '2026-03-27', 'Not assigned', '[]'::jsonb),
+  ('REQ-040', 3, 5, 'Helipad wind sock replacement', 'Faded — aviation checklist item.', 'Requested', 'Low', '2026-03-28', 'Jordan Kim', '[]'::jsonb),
+  ('REQ-041', 17, 6, 'Courtyard motion light out', 'Pole L4 dark along pathway to mail.', 'Registered', 'Medium', '2026-03-29', 'Alex Rivera', '[]'::jsonb),
+  ('REQ-042', 18, 7, 'Radiator valve hiss', 'Bedroom loop — constant light hiss when heat calls.', 'In Progress', 'Low', '2026-03-29', 'John Smith', '[]'::jsonb),
+  ('REQ-043', 19, 8, 'Drywall nail pops — hallway', 'Three obvious pops after cold snap.', 'Registered', 'Low', '2026-03-30', 'Not assigned', '[]'::jsonb),
+  ('REQ-044', 20, 9, 'Loading dock keypad fade', 'Display unreadable in sunlight.', 'Requested', 'Medium', '2026-03-30', 'Maria Garcia', '[]'::jsonb),
+  ('REQ-045', 21, 10, 'Beehive in courtyard oak', 'Facilities to relocate — roped off.', 'In Progress', 'High', '2026-03-25', 'Jordan Kim', '[]'::jsonb),
+  ('REQ-046', 22, 11, 'Lake view terrace gate squeal', 'Hinge needs lube — noise after 10 PM.', 'Registered', 'Low', '2026-03-31', 'David Lee', '[]'::jsonb);
 
 INSERT INTO notifications (user_id, message, relative_time) VALUES
   (2, 'Your maintenance request REQ-001 has been assigned to a technician', '2 hours ago'),
@@ -72,7 +95,44 @@ INSERT INTO notifications (user_id, message, relative_time) VALUES
   (4, 'REQ-007: We have received your photos', '1 hour ago'),
   (4, 'Elevator B inspection complete — all clear', '3 days ago'),
   (5, 'Welcome packet — building Wi-Fi and amenities', 'Just now'),
-  (6, 'REQ-010: Technician en route tomorrow 10–12', '30 minutes ago');
+  (6, 'REQ-010: Technician en route tomorrow 10–12', '30 minutes ago'),
+  (7, 'Water shutoff test: Building C — Tuesday 6 AM (15 min)', '8 hours ago'),
+  (7, 'Your visitor pass QR expires in 3 days', '1 day ago'),
+  (8, 'Noise complaint reminder: quiet hours 10 PM – 7 AM', '2 days ago'),
+  (8, 'Package locker code: #### — expires in 48h', '4 hours ago'),
+  (9, 'HVAC seasonal tune-up window: opt-in by Friday', '3 days ago'),
+  (9, 'Parking permit renewal — upload plate photo', '5 days ago'),
+  (10, 'Smoke alarm self-test due this month', '12 hours ago'),
+  (10, 'Community compost guidelines updated', '1 week ago'),
+  (11, 'Roof deck closure: high winds Saturday', '6 hours ago'),
+  (11, 'Storage auction notice — unclaimed bins Lot D', '2 days ago'),
+  (2, 'Internet provider maintenance: possible blip 2–4 AM', '3 days ago'),
+  (3, 'Elevator A modernization: week 2 of 6 — expect slight delays', '1 day ago'),
+  (4, 'Trash chute deodorizer service completed', 'Yesterday'),
+  (5, 'Guest parking QR weekly reset — new code in app', 'Just now'),
+  (6, 'Fire alarm panel test complete — all zones green', '4 days ago'),
+  (7, 'Laundry card top-up kiosk restocked with $5 cards', '2 days ago'),
+  (8, 'Thank you: volunteer recycling day — 42 lbs diverted', '1 week ago'),
+  (9, 'Winter salt bucket refill: lobby and garage entries', '18 hours ago'),
+  (10, 'Board meeting minutes published — budget Q1', '5 days ago'),
+  (11, 'Pet spa pop-up Sunday 10–2 in courtyard', 'Tomorrow'),
+  (2, 'Reminder: submit parking guest plates before game night', '6 days ago'),
+  (4, 'Leak in P2 investigated — no unit damage found', '2 hours ago'),
+  (5, 'Holiday lighting survey — vote by March 30', '4 days ago'),
+  (8, 'Window washing scheduled — balcony furniture in 3 ft', '3 days ago'),
+  (10, 'Fitness center chiller service — temp may run 48h', '7 hours ago'),
+  (1, 'Admin broadcast: rent statements available in portal', '1 day ago'),
+  (1, 'Compliance: annual lead pamphlet acknowledgment', '10 days ago'),
+  (3, 'REQ-020 update: parts ordered for bike rack', '45 minutes ago'),
+  (6, 'Courtyard herb garden: spring planting volunteers wanted', '3 days ago'),
+  (9, 'EV charger Lot B: software patch Tuesday overnight', '1 day ago'),
+  (17, 'Welcome — Maple Row digital keys active', '2 days ago'),
+  (17, 'Compost orientation: Zoom link in portal', '5 days ago'),
+  (18, 'Summit Place shuttle schedule — Easter weekend', '4 days ago'),
+  (19, 'Oak & Fourth: package room extended hours pilot', '12 hours ago'),
+  (20, 'Foundry loading bay — propane cage inspection passed', '1 week ago'),
+  (21, 'Garden Court spring air-filter delivery batch', '6 hours ago'),
+  (22, 'Lakeshore 9: lake path lights audit complete', 'Yesterday');
 
 INSERT INTO bills (bill_id, user_id, type, amount, due_date, status) VALUES
   ('BILL-2026-03-001', 2, 'Monthly Service Charge', 450.00, '2026-03-31', 'Unpaid'),
@@ -86,6 +146,30 @@ INSERT INTO bills (bill_id, user_id, type, amount, due_date, status) VALUES
   ('BILL-2026-03-009', 10, 'Monthly Service Charge', 450.00, '2026-03-31', 'Unpaid'),
   ('BILL-2026-03-010', 11, 'Monthly Service Charge', 450.00, '2026-03-31', 'Unpaid'),
   ('BILL-2026-02-001', 2, 'Monthly Service Charge', 450.00, '2026-02-28', 'Paid'),
-  ('BILL-2026-01-001', 4, 'Parking stall add-on', 35.00, '2026-01-31', 'Paid');
+  ('BILL-2026-01-001', 4, 'Parking stall add-on', 35.00, '2026-01-31', 'Paid'),
+  ('BILL-2026-04-001', 2, 'Quarterly HVAC filter program', 28.50, '2026-04-15', 'Unpaid'),
+  ('BILL-2026-04-002', 3, 'Quarterly HVAC filter program', 28.50, '2026-04-15', 'Unpaid'),
+  ('BILL-2026-04-003', 5, 'Dog wash subscription — March', 22.00, '2026-04-01', 'Paid'),
+  ('BILL-2026-04-004', 6, 'Storage cage monthly', 15.00, '2026-04-05', 'Unpaid'),
+  ('BILL-2026-04-005', 7, 'Storage cage monthly', 15.00, '2026-04-05', 'Unpaid'),
+  ('BILL-2026-04-006', 8, 'Bike locker annual', 120.00, '2026-04-30', 'Unpaid'),
+  ('BILL-2026-04-007', 9, 'Guest suite overnight — Mar 12', 185.00, '2026-03-25', 'Paid'),
+  ('BILL-2026-04-008', 10, 'Amenity fee — rooftop deck', 9.00, '2026-04-10', 'Unpaid'),
+  ('BILL-2026-04-009', 11, 'Valet dry-cleaning pickup — batch #4401', 64.25, '2026-04-02', 'Unpaid'),
+  ('BILL-2026-03-011', 2, 'Late fee waiver reversed — March', 25.00, '2026-03-29', 'Unpaid'),
+  ('BILL-2026-03-012', 7, 'Utility reconciliation — February', 31.40, '2026-03-28', 'Paid'),
+  ('BILL-2026-03-013', 8, 'Utility reconciliation — February', 27.90, '2026-03-28', 'Paid'),
+  ('BILL-2026-02-002', 3, 'Monthly Service Charge', 450.00, '2026-02-28', 'Paid'),
+  ('BILL-2026-02-003', 5, 'Monthly Service Charge', 450.00, '2026-02-28', 'Paid'),
+  ('BILL-2026-02-004', 11, 'Monthly Service Charge', 450.00, '2026-02-28', 'Paid'),
+  ('BILL-2026-01-002', 6, 'Window washing assessment', 18.00, '2026-01-15', 'Paid'),
+  ('BILL-2026-03-014', 17, 'Monthly Service Charge', 425.00, '2026-03-31', 'Unpaid'),
+  ('BILL-2026-03-015', 18, 'Monthly Service Charge', 485.00, '2026-03-31', 'Unpaid'),
+  ('BILL-2026-03-016', 19, 'Monthly Service Charge', 410.00, '2026-03-31', 'Paid'),
+  ('BILL-2026-03-017', 20, 'Monthly Service Charge', 395.00, '2026-03-31', 'Unpaid'),
+  ('BILL-2026-03-018', 21, 'Monthly Service Charge', 438.00, '2026-03-31', 'Unpaid'),
+  ('BILL-2026-03-019', 22, 'Monthly Service Charge', 402.00, '2026-03-31', 'Unpaid'),
+  ('BILL-2026-04-010', 17, 'Garden plot deposit — 2026', 50.00, '2026-04-20', 'Unpaid'),
+  ('BILL-2026-04-011', 21, 'Courtyard event power drop — March mixer', 75.00, '2026-03-27', 'Paid');
 
 COMMIT;

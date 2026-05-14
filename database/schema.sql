@@ -1,6 +1,3 @@
--- Property Manager — PostgreSQL schema
--- Run after: CREATE DATABASE property_management;
-
 DROP TABLE IF EXISTS notifications CASCADE;
 DROP TABLE IF EXISTS bills CASCADE;
 DROP TABLE IF EXISTS maintenance_requests CASCADE;

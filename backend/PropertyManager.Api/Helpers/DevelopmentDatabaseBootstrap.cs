@@ -7,10 +7,6 @@ using PropertyManager.Api.Data;
 
 namespace PropertyManager.Api.Helpers;
 
-/// <summary>
-/// In Development, applies <c>database/seed.sql</c> when the <c>buildings</c> table is empty.
-/// Demo portfolio units/images/occupancies (<see cref="DemoPortfolioSeed"/>) expect buildings and users from that file.
-/// </summary>
 public static class DevelopmentDatabaseBootstrap
 {
     public static void ApplyDevelopmentSeedIfEmpty(
@@ -22,8 +18,18 @@ public static class DevelopmentDatabaseBootstrap
         if (!environment.IsDevelopment())
             return;
 
-        if (db.Buildings.AsNoTracking().Any())
+        var hasBuildings = db.Buildings.AsNoTracking().Any();
+        if (hasBuildings)
+        {
+            if (!db.Users.AsNoTracking().Any())
+            {
+                logger.LogWarning(
+                    "Development database has buildings but no users. Automatic seed from {Path} only runs when the database has no buildings. " +
+                    "Apply database/seed.sql manually, or reset the dev database (schema + seed) so demo logins work.",
+                    Path.GetFullPath(Path.Combine(environment.ContentRootPath, "..", "..", "database", "seed.sql")));
+            }
             return;
+        }
 
         var contentRoot = environment.ContentRootPath;
         var seedPath = Path.GetFullPath(Path.Combine(contentRoot, "..", "..", "database", "seed.sql"));

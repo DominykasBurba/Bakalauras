@@ -1,0 +1,4 @@
+coverage/
+PropertyManager.Api.Tests/coverage.cobertura.xml
+**/TestResults/
+.vs/

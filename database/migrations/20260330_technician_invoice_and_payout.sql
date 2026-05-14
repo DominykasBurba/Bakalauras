@@ -1,4 +1,3 @@
--- Technician invoice detail + accounts-payable tracking (run against existing DB)
 ALTER TABLE maintenance_requests
   ADD COLUMN IF NOT EXISTS technician_invoice_line_items JSONB NOT NULL DEFAULT '[]'::jsonb;
 

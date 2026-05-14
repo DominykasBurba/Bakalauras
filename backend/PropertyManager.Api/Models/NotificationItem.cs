@@ -8,6 +8,5 @@ public sealed class NotificationItem
     public required string RelativeTime { get; init; }
     public bool IsRead { get; init; }
     public int? BuildingId { get; init; }
-    /// <summary>UpcomingMaintenance, General, or null for legacy rows.</summary>
     public string? Category { get; init; }
 }

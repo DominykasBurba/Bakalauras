@@ -31,7 +31,7 @@ public class BillingController(IDataStore dataStore, IConfiguration configuratio
         if (User.IsInRole("Admin"))
             return StatusCode(StatusCodes.Status403Forbidden, "Billing is only available to residents.");
 
-        return Ok(dataStore.Bills.Where(b => b.UserId == userId).ToList());
+        return Ok(dataStore.Bills.Where(b => b.UserId == userId && b.ResidentNotificationSent).ToList());
     }
 
     [HttpPost("checkout-session")]
@@ -62,15 +62,27 @@ public class BillingController(IDataStore dataStore, IConfiguration configuratio
             return StatusCode(StatusCodes.Status403Forbidden, "You can only pay your own bills.");
         if (string.Equals(bill.Status, "Paid", StringComparison.OrdinalIgnoreCase))
             return BadRequest("This bill is already paid.");
+        if (!bill.ResidentNotificationSent)
+            return BadRequest("This bill is not available for payment yet. Your property office will notify you when it is ready.");
 
         var baseUrl = configuration["Stripe:FrontendBaseUrl"]?.TrimEnd('/') ?? "http://localhost:5173";
         var unitAmount = (long)Math.Round(bill.Amount * 100m, MidpointRounding.AwayFromZero);
-        if (unitAmount < 50)
-            return BadRequest("Amount is below Stripe minimum (USD 0.50).");
+        const long minimumUnitAmountUsd = 100;
+        if (unitAmount < minimumUnitAmountUsd)
+        {
+            return BadRequest(
+                "Amount is below the minimum for card checkout (USD 1.00). " +
+                "Stripe requires the total to meet currency minimums after conversion.");
+        }
+
+        var lineName = $"{bill.Type} - {bill.BillId}".Trim();
+        if (lineName.Length == 0)
+            lineName = bill.BillId;
 
         var options = new SessionCreateOptions
         {
             Mode = "payment",
+            PaymentMethodTypes = ["card"],
             SuccessUrl = $"{baseUrl}/billing?session_id={{CHECKOUT_SESSION_ID}}",
             CancelUrl = $"{baseUrl}/billing?canceled=1",
             Metadata = new Dictionary<string, string> { ["bill_id"] = bill.BillId },
@@ -85,7 +97,7 @@ public class BillingController(IDataStore dataStore, IConfiguration configuratio
                         UnitAmount = unitAmount,
                         ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
-                            Name = $"{bill.Type} — {bill.BillId}",
+                            Name = lineName.Length > 250 ? lineName[..250] : lineName,
                             Description = $"Due {bill.DueDate:yyyy-MM-dd}",
                         },
                     },
@@ -93,9 +105,29 @@ public class BillingController(IDataStore dataStore, IConfiguration configuratio
             ],
         };
 
-        var service = new SessionService();
-        var session = await service.CreateAsync(options, cancellationToken: cancellationToken);
-        return Ok(new { url = session.Url });
+        var email = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value?.Trim();
+        if (!string.IsNullOrEmpty(email))
+            options.CustomerEmail = email;
+
+        try
+        {
+            var service = new SessionService();
+            var session = await service.CreateAsync(options, cancellationToken: cancellationToken);
+            if (string.IsNullOrEmpty(session.Url))
+            {
+                logger.LogError("Stripe Checkout session has no Url. SessionId={SessionId}", session.Id);
+                return Problem(
+                    detail: "Stripe did not return a checkout URL. Check the API key and Dashboard Checkout settings.",
+                    statusCode: StatusCodes.Status502BadGateway);
+            }
+
+            return Ok(new { url = session.Url });
+        }
+        catch (StripeException ex)
+        {
+            logger.LogWarning(ex, "Stripe CreateCheckoutSession failed");
+            return Problem(detail: ex.StripeError?.Message ?? ex.Message, statusCode: StatusCodes.Status502BadGateway);
+        }
     }
 
     [HttpPost("verify-session")]

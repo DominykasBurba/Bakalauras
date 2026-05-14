@@ -1,6 +1,3 @@
--- Units (rooms), building gallery images, occupancies, optional user.unit_id link.
--- Run against existing property_management DB.
-
 CREATE TABLE IF NOT EXISTS units (
     id SERIAL PRIMARY KEY,
     building_id INT NOT NULL REFERENCES buildings(id) ON DELETE CASCADE,
@@ -36,7 +33,6 @@ CREATE TABLE IF NOT EXISTS occupancies (
 CREATE INDEX IF NOT EXISTS idx_occupancies_unit ON occupancies(unit_id);
 CREATE INDEX IF NOT EXISTS idx_occupancies_user ON occupancies(user_id);
 
--- At most one current (open) occupancy per unit
 CREATE UNIQUE INDEX IF NOT EXISTS ux_occupancies_one_active_per_unit
     ON occupancies(unit_id) WHERE ended_at IS NULL;
 

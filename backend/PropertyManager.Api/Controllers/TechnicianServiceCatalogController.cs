@@ -6,7 +6,6 @@ using PropertyManager.Api.Helpers;
 
 namespace PropertyManager.Api.Controllers;
 
-/// <summary>Technician: read-only list of catalog services assigned by admin.</summary>
 [ApiController]
 [Route("api/technician/service-catalog")]
 [Authorize(Roles = "Technician")]

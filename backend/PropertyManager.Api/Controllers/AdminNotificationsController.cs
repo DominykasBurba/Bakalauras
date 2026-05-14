@@ -9,7 +9,6 @@ namespace PropertyManager.Api.Controllers;
 public sealed class BroadcastNotificationRequest
 {
     public required string Message { get; init; }
-    /// <summary>When set, only residents assigned to this building. Omit or null for all residents.</summary>
     public int? BuildingId { get; init; }
 }
 
