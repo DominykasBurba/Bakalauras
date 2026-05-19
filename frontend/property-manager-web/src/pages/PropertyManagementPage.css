@@ -1,0 +1,95 @@
+.property-management-page .property-building-bar {
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+
+.property-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.property-tab {
+  padding: 10px 18px;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  background: var(--card-bg);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.property-tab:hover {
+  border-color: var(--primary);
+  color: var(--text-primary);
+}
+
+.property-tab.active {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary-hover);
+}
+
+.property-tab-panel {
+  margin-top: 8px;
+}
+
+.property-header-hint {
+  margin: 0 0 12px;
+}
+
+.property-overview-occ {
+  margin-top: 24px;
+  padding: 20px 24px;
+}
+
+.property-callout {
+  margin: 20px 0;
+  padding: 18px 20px;
+  border-left: 4px solid var(--primary);
+  background: var(--primary-light);
+}
+
+.property-callout-title {
+  margin: 0 0 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.property-callout-body {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.property-callout-emphasis {
+  margin-top: 12px;
+  color: var(--text-primary);
+}
+
+.property-units-availability-banner {
+  margin: 0 0 20px;
+}
+
+.property-units-availability-banner--at-capacity {
+  border-left-color: #d97706;
+  background: linear-gradient(
+    90deg,
+    rgba(217, 119, 6, 0.12) 0%,
+    var(--primary-light, rgba(14, 165, 233, 0.12)) 55%
+  );
+}
+
+.property-all-buildings {
+  margin-top: 20px;
+  padding: 20px 24px;
+}
+
+.property-all-buildings-lead {
+  margin-bottom: 14px;
+}

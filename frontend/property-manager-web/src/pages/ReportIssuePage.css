@@ -1,0 +1,150 @@
+.page.report-issue-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0 4px;
+  box-sizing: border-box;
+}
+
+.page.report-issue-page h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+
+.page.report-issue-page .page-subtitle {
+  font-size: 0.9375rem;
+  text-align: center;
+  margin: 0 0 16px;
+  color: var(--text-secondary);
+}
+
+.report-form.card {
+  padding: 18px 20px 20px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.report-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.report-form-location {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 640px) {
+  .report-form-location {
+    grid-template-columns: 1fr;
+  }
+}
+
+.report-issue-session-warn {
+  text-align: center;
+  max-width: 32rem;
+  margin: 0 auto 12px;
+  font-size: 0.8125rem;
+}
+
+.report-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+}
+
+.report-form .report-form-label-row {
+  display: inline-block;
+  line-height: 1.25;
+}
+
+.report-form .report-form-label-row .req {
+  margin-left: 1px;
+}
+
+.report-form-upload-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+}
+
+.report-form-upload-field > label {
+  display: block;
+}
+
+.report-form input,
+.report-form textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  background: var(--card-bg);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.report-form textarea {
+  min-height: 110px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.report-form input:focus,
+.report-form textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.report-form input.readonly {
+  background: var(--bg-page);
+  color: var(--text-secondary);
+  cursor: default;
+}
+
+.page.report-issue-page .upload-zone--compact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 12px;
+}
+
+.page.report-issue-page .upload-zone-btn {
+  margin-top: 0;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.page.report-issue-page .form-actions {
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.page.report-issue-page .form-actions .btn-secondary,
+.page.report-issue-page .form-actions .btn-primary {
+  padding: 10px 18px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}

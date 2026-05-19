@@ -1,0 +1,72 @@
+.notification-list-full {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  background: var(--card-bg);
+  transition: box-shadow 0.15s ease;
+  font-size: 1.05rem;
+  overflow: hidden;
+}
+
+.notification-item:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.notification-item.unread {
+  border-left: 4px solid var(--primary);
+}
+
+.notification-item-main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 24px;
+  min-width: 0;
+}
+
+.notification-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 24px 24px 0;
+  flex-shrink: 0;
+}
+
+.notif-icon {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 10px;
+  background: var(--primary-light);
+  flex-shrink: 0;
+}
+
+.notif-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notif-message {
+  margin: 0 0 6px;
+  line-height: 1.5;
+}
+
+.unread-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+  margin-top: 10px;
+}

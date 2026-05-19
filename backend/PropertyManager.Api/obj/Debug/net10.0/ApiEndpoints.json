@@ -1,5 +1,532 @@
 [
   {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminNotificationsController",
+    "Method": "Broadcast",
+    "RelativePath": "api/admin/notifications/broadcast",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.BroadcastNotificationRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminOccupantsController",
+    "Method": "List",
+    "RelativePath": "api/admin/occupants",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "buildingId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminOccupantsController",
+    "Method": "Create",
+    "RelativePath": "api/admin/occupants",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Models.Dtos.CreateOccupantRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminOccupantsController",
+    "Method": "Get",
+    "RelativePath": "api/admin/occupants/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminOccupantsController",
+    "Method": "Update",
+    "RelativePath": "api/admin/occupants/{userId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Models.Dtos.UpdateOccupantRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminOccupantsController",
+    "Method": "Delete",
+    "RelativePath": "api/admin/occupants/{userId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminOccupantsController",
+    "Method": "Approve",
+    "RelativePath": "api/admin/occupants/{userId}/approve",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminOccupantsController",
+    "Method": "Decline",
+    "RelativePath": "api/admin/occupants/{userId}/decline",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Models.Dtos.DeclineOccupantRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminOfferedServicesController",
+    "Method": "ListPending",
+    "RelativePath": "api/admin/offered-services/pending-review",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IReadOnlyList\u00601[[PropertyManager.Api.Controllers.PendingTechnicianOfferedServiceRow, PropertyManager.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminResidentsController",
+    "Method": "List",
+    "RelativePath": "api/admin/residents",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "buildingId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminScheduledMaintenanceController",
+    "Method": "List",
+    "RelativePath": "api/admin/scheduled-maintenance",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "buildingId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminScheduledMaintenanceController",
+    "Method": "Create",
+    "RelativePath": "api/admin/scheduled-maintenance",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Models.Dtos.CreateScheduledMaintenanceRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminScheduledMaintenanceController",
+    "Method": "Update",
+    "RelativePath": "api/admin/scheduled-maintenance/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Models.Dtos.CreateScheduledMaintenanceRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminScheduledMaintenanceController",
+    "Method": "Delete",
+    "RelativePath": "api/admin/scheduled-maintenance/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.ServiceCatalogController",
+    "Method": "List",
+    "RelativePath": "api/admin/service-catalog",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IReadOnlyList\u00601[[PropertyManager.Api.Controllers.ServiceCatalogItemDto, PropertyManager.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.ServiceCatalogController",
+    "Method": "Create",
+    "RelativePath": "api/admin/service-catalog",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.ServiceCatalogWriteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PropertyManager.Api.Controllers.ServiceCatalogItemDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.ServiceCatalogController",
+    "Method": "Update",
+    "RelativePath": "api/admin/service-catalog/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.ServiceCatalogWriteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PropertyManager.Api.Controllers.ServiceCatalogItemDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.ServiceCatalogController",
+    "Method": "Delete",
+    "RelativePath": "api/admin/service-catalog/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminTechniciansController",
+    "Method": "List",
+    "RelativePath": "api/admin/technicians",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IReadOnlyList\u00601[[PropertyManager.Api.Controllers.TechnicianDirectoryRowDto, PropertyManager.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminTechniciansController",
+    "Method": "GetById",
+    "RelativePath": "api/admin/technicians/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PropertyManager.Api.Controllers.TechnicianDetailDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminTechniciansController",
+    "Method": "PutCatalogServices",
+    "RelativePath": "api/admin/technicians/{userId}/catalog-services",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.TechnicianCatalogServicesWriteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminTechniciansController",
+    "Method": "ReviewOfferedService",
+    "RelativePath": "api/admin/technicians/{userId}/offered-services/{id}/review",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.OfferedServiceAdminReviewRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PropertyManager.Api.Controllers.OfferedServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminTechniciansController",
+    "Method": "UpsertProfile",
+    "RelativePath": "api/admin/technicians/{userId}/profile",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.TechnicianProfileWriteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PropertyManager.Api.Controllers.TechnicianProfileDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminTechniciansController",
+    "Method": "AssignmentContext",
+    "RelativePath": "api/admin/technicians/assignment-context",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PropertyManager.Api.Controllers.TechnicianAssignmentContextDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AdminTechniciansController",
+    "Method": "Names",
+    "RelativePath": "api/admin/technicians/names",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "catalogItemId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IReadOnlyList\u00601[[PropertyManager.Api.Controllers.TechnicianNameOptionDto, PropertyManager.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "PropertyManager.Api.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",
@@ -26,6 +553,42 @@
     ]
   },
   {
+    "ContainingType": "PropertyManager.Api.Controllers.AuthController",
+    "Method": "ChangePassword",
+    "RelativePath": "api/Auth/password",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Models.Dtos.ChangePasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.AuthController",
+    "Method": "Session",
+    "RelativePath": "api/Auth/session",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "PropertyManager.Api.Models.Dtos.SessionResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "PropertyManager.Api.Controllers.BillingController",
     "Method": "GetBills",
     "RelativePath": "api/Billing",
@@ -33,6 +596,64 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.BillingController",
+    "Method": "CreateCheckoutSession",
+    "RelativePath": "api/Billing/checkout-session",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.CreateCheckoutSessionRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.BillingController",
+    "Method": "VerifyCheckoutSession",
+    "RelativePath": "api/Billing/verify-session",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.VerifyCheckoutSessionRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.BillingController",
+    "Method": "StripeWebhook",
+    "RelativePath": "api/Billing/webhook",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.BuildingImageDetailController",
+    "Method": "Delete",
+    "RelativePath": "api/building-images/{imageId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "imageId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -46,13 +667,204 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "PropertyManager.Api.Controllers.BuildingsController",
+    "Method": "Create",
+    "RelativePath": "api/Buildings",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Models.Dtos.BuildingWriteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.BuildingImagesListController",
+    "Method": "List",
+    "RelativePath": "api/buildings/{buildingId}/images",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "buildingId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.BuildingImagesListController",
+    "Method": "Create",
+    "RelativePath": "api/buildings/{buildingId}/images",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "buildingId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Models.BuildingImageWriteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.BuildingUnitsController",
+    "Method": "List",
+    "RelativePath": "api/buildings/{buildingId}/units",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "buildingId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.BuildingUnitsController",
+    "Method": "Create",
+    "RelativePath": "api/buildings/{buildingId}/units",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "buildingId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Models.UnitWriteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.BuildingsController",
+    "Method": "Update",
+    "RelativePath": "api/Buildings/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Models.Dtos.BuildingWriteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.BuildingsController",
+    "Method": "Delete",
+    "RelativePath": "api/Buildings/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "PropertyManager.Api.Controllers.DashboardController",
     "Method": "GetNotifications",
     "RelativePath": "api/Dashboard/notifications",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
+    "Parameters": [
+      {
+        "Name": "buildingId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.DashboardController",
+    "Method": "MarkNotificationRead",
+    "RelativePath": "api/Dashboard/notifications/{id}/read",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.DashboardController",
+    "Method": "MarkNotificationUnread",
+    "RelativePath": "api/Dashboard/notifications/{id}/unread",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.DashboardController",
+    "Method": "MarkAllNotificationsRead",
+    "RelativePath": "api/Dashboard/notifications/read-all",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.PropertyOverviewController",
+    "Method": "Get",
+    "RelativePath": "api/dashboard/property-overview",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "buildingId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -62,7 +874,13 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "buildingId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "PropertyManager.Api.Models.Dtos.DashboardDto",
@@ -96,6 +914,587 @@
       {
         "Name": "request",
         "Type": "PropertyManager.Api.Controllers.CreateMaintenanceRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "GetById",
+    "RelativePath": "api/MaintenanceRequests/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "SetAdminResidentResponse",
+    "RelativePath": "api/MaintenanceRequests/{id}/admin-resident-response",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.AdminResidentResponseRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "Approve",
+    "RelativePath": "api/MaintenanceRequests/{id}/approve",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "CompleteWithoutCharge",
+    "RelativePath": "api/MaintenanceRequests/{id}/complete-without-charge",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "Decline",
+    "RelativePath": "api/MaintenanceRequests/{id}/decline",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.DeclineMaintenanceRequestBody",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "UpdatePriority",
+    "RelativePath": "api/MaintenanceRequests/{id}/priority",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.UpdatePriorityRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "CreateResidentCharge",
+    "RelativePath": "api/MaintenanceRequests/{id}/resident-charge",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.ResidentChargeRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "UpdateResidentCharge",
+    "RelativePath": "api/MaintenanceRequests/{id}/resident-charge",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.ResidentChargeRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "SendResidentChargeNotification",
+    "RelativePath": "api/MaintenanceRequests/{id}/resident-charge/send",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "SetResidentFeedback",
+    "RelativePath": "api/MaintenanceRequests/{id}/resident-feedback",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.ResidentFeedbackRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "UpdateStatus",
+    "RelativePath": "api/MaintenanceRequests/{id}/status",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.UpdateStatusRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "AssignTechnician",
+    "RelativePath": "api/MaintenanceRequests/{id}/technician",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.AssignTechnicianRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "SetTechnicianInvoice",
+    "RelativePath": "api/MaintenanceRequests/{id}/technician-invoice",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.TechnicianInvoiceRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "SetTechnicianPayout",
+    "RelativePath": "api/MaintenanceRequests/{id}/technician-payout",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.TechnicianPayoutRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "TechnicianSiteDetails",
+    "RelativePath": "api/MaintenanceRequests/{id}/technician-site-details",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.TechnicianSiteDetailsRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.MaintenanceRequestsController",
+    "Method": "TechnicianUpdateStatus",
+    "RelativePath": "api/MaintenanceRequests/{id}/technician-status",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.TechnicianStatusRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.OccupanciesController",
+    "Method": "List",
+    "RelativePath": "api/occupancies",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "buildingId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "currentOnly",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.OccupanciesController",
+    "Method": "End",
+    "RelativePath": "api/occupancies/{occupancyId}/end",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "occupancyId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Models.EndOccupancyRequest",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.ResidentProfileController",
+    "Method": "GetProfile",
+    "RelativePath": "api/resident/profile",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.ResidentProfileController",
+    "Method": "UpdateProfile",
+    "RelativePath": "api/resident/profile",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Models.Dtos.ResidentProfileWriteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.ScheduledMaintenanceController",
+    "Method": "ListMine",
+    "RelativePath": "api/scheduled-maintenance",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.TechnicianOfferedServicesController",
+    "Method": "ListMine",
+    "RelativePath": "api/technician/offered-services",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IReadOnlyList\u00601[[PropertyManager.Api.Controllers.OfferedServiceResponse, PropertyManager.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.TechnicianOfferedServicesController",
+    "Method": "Create",
+    "RelativePath": "api/technician/offered-services",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Controllers.OfferedServiceWriteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PropertyManager.Api.Controllers.OfferedServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.TechnicianOfferedServicesController",
+    "Method": "Update",
+    "RelativePath": "api/technician/offered-services/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "_",
+        "Type": "PropertyManager.Api.Controllers.OfferedServiceWriteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PropertyManager.Api.Controllers.OfferedServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.TechnicianOfferedServicesController",
+    "Method": "Delete",
+    "RelativePath": "api/technician/offered-services/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.TechnicianServiceCatalogController",
+    "Method": "ListMine",
+    "RelativePath": "api/technician/service-catalog",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IReadOnlyList\u00601[[PropertyManager.Api.Controllers.ServiceCatalogItemDto, PropertyManager.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.UnitDetailController",
+    "Method": "Get",
+    "RelativePath": "api/units/{unitId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "unitId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.UnitDetailController",
+    "Method": "Update",
+    "RelativePath": "api/units/{unitId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "unitId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Models.UnitWriteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.UnitDetailController",
+    "Method": "Delete",
+    "RelativePath": "api/units/{unitId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "unitId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PropertyManager.Api.Controllers.OccupanciesController",
+    "Method": "Assign",
+    "RelativePath": "api/units/{unitId}/occupancies",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "unitId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "PropertyManager.Api.Models.AssignOccupancyRequest",
         "IsRequired": true
       }
     ],

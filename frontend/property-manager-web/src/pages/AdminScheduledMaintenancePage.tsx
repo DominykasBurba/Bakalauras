@@ -5,6 +5,7 @@ import { useToast } from '../contexts/ToastContext';
 import { useBuilding } from '../contexts/BuildingContext';
 import { useAdminBuildingFilter } from '../hooks/useAdminBuildingFilter';
 import type { ScheduledMaintenanceItem } from '../types';
+import './AdminScheduledMaintenancePage.css';
 export function AdminScheduledMaintenancePage() {
     const { auth } = useAuth();
     const showToast = useToast();

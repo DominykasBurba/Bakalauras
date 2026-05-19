@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\PropertyManager.Api.csproj": {}
+    "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\PropertyManager.Api.csproj": {}
   },
   "projects": {
-    "c:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\PropertyManager.Api.csproj": {
+    "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\PropertyManager.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\PropertyManager.Api.csproj",
+        "projectUniqueName": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\PropertyManager.Api.csproj",
         "projectName": "PropertyManager.Api",
-        "projectPath": "c:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\PropertyManager.Api.csproj",
+        "projectPath": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\PropertyManager.Api.csproj",
         "packagesPath": "C:\\Users\\iksas\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\obj\\",
+        "outputPath": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

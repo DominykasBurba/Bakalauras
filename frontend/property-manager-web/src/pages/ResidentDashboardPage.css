@@ -1,0 +1,35 @@
+.need-assistance {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  background: linear-gradient(135deg, var(--primary-light) 0%, #f0f9ff 100%);
+  border-color: rgba(14, 165, 233, 0.3);
+}
+
+.need-assistance h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.need-assistance p {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+.grid-two {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 28px;
+}
+
+.upcoming-item {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.upcoming-item:last-child {
+  border-bottom: none;
+}

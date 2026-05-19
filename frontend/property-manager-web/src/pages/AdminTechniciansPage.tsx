@@ -4,6 +4,7 @@ import { getAdminTechnicians } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
 import type { TechnicianDirectoryRow } from '../types';
+import './AdminTechniciansPage.css';
 function complianceLabel(health: string): string {
     switch (health) {
         case 'ok':

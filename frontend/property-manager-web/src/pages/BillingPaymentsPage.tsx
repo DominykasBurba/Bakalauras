@@ -6,6 +6,7 @@ import { useToast } from '../contexts/ToastContext';
 import { useAdminBuildingFilter } from '../hooks/useAdminBuildingFilter';
 import { downloadBillPdf } from '../utils/receiptPdf';
 import type { Bill } from '../types';
+import './BillingPaymentsPage.css';
 function sleep(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }

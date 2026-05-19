@@ -3,6 +3,34 @@
   "WorkspaceRootPath": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{BB1130E6-37A5-43C6-A265-1043EB2551CF}|PropertyManager.Api\\PropertyManager.Api.csproj|c:\\users\\iksas\\desktop\\property-manager\\backend\\propertymanager.api\\controllers\\adminnotificationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BB1130E6-37A5-43C6-A265-1043EB2551CF}|PropertyManager.Api\\PropertyManager.Api.csproj|solutionrelative:propertymanager.api\\controllers\\adminnotificationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0ED48882-3541-4E49-A13B-35D2D881C008}|PropertyManager.Api.Tests\\PropertyManager.Api.Tests.csproj|c:\\users\\iksas\\desktop\\property-manager\\backend\\propertymanager.api.tests\\integration\\integrationtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0ED48882-3541-4E49-A13B-35D2D881C008}|PropertyManager.Api.Tests\\PropertyManager.Api.Tests.csproj|solutionrelative:propertymanager.api.tests\\integration\\integrationtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0ED48882-3541-4E49-A13B-35D2D881C008}|PropertyManager.Api.Tests\\PropertyManager.Api.Tests.csproj|c:\\users\\iksas\\desktop\\property-manager\\backend\\propertymanager.api.tests\\maintenanceworkflowtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0ED48882-3541-4E49-A13B-35D2D881C008}|PropertyManager.Api.Tests\\PropertyManager.Api.Tests.csproj|solutionrelative:propertymanager.api.tests\\maintenanceworkflowtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0ED48882-3541-4E49-A13B-35D2D881C008}|PropertyManager.Api.Tests\\PropertyManager.Api.Tests.csproj|c:\\users\\iksas\\desktop\\property-manager\\backend\\propertymanager.api.tests\\jwttokenservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0ED48882-3541-4E49-A13B-35D2D881C008}|PropertyManager.Api.Tests\\PropertyManager.Api.Tests.csproj|solutionrelative:propertymanager.api.tests\\jwttokenservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0ED48882-3541-4E49-A13B-35D2D881C008}|PropertyManager.Api.Tests\\PropertyManager.Api.Tests.csproj|c:\\users\\iksas\\desktop\\property-manager\\backend\\propertymanager.api.tests\\httpurlhelpertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0ED48882-3541-4E49-A13B-35D2D881C008}|PropertyManager.Api.Tests\\PropertyManager.Api.Tests.csproj|solutionrelative:propertymanager.api.tests\\httpurlhelpertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0ED48882-3541-4E49-A13B-35D2D881C008}|PropertyManager.Api.Tests\\PropertyManager.Api.Tests.csproj|c:\\users\\iksas\\desktop\\property-manager\\backend\\propertymanager.api.tests\\connectionstringresolvertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0ED48882-3541-4E49-A13B-35D2D881C008}|PropertyManager.Api.Tests\\PropertyManager.Api.Tests.csproj|solutionrelative:propertymanager.api.tests\\connectionstringresolvertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0ED48882-3541-4E49-A13B-35D2D881C008}|PropertyManager.Api.Tests\\PropertyManager.Api.Tests.csproj|c:\\users\\iksas\\desktop\\property-manager\\backend\\propertymanager.api.tests\\claimshelpertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0ED48882-3541-4E49-A13B-35D2D881C008}|PropertyManager.Api.Tests\\PropertyManager.Api.Tests.csproj|solutionrelative:propertymanager.api.tests\\claimshelpertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{BB1130E6-37A5-43C6-A265-1043EB2551CF}|PropertyManager.Api\\PropertyManager.Api.csproj|c:\\users\\iksas\\desktop\\property-manager\\backend\\propertymanager.api\\controllers\\maintenancerequestscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BB1130E6-37A5-43C6-A265-1043EB2551CF}|PropertyManager.Api\\PropertyManager.Api.csproj|solutionrelative:propertymanager.api\\controllers\\maintenancerequestscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -27,10 +55,6 @@
       "RelativeMoniker": "D:0:0:{BB1130E6-37A5-43C6-A265-1043EB2551CF}|PropertyManager.Api\\PropertyManager.Api.csproj|solutionrelative:propertymanager.api\\services\\jwttokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BB1130E6-37A5-43C6-A265-1043EB2551CF}|PropertyManager.Api\\PropertyManager.Api.csproj|c:\\users\\iksas\\desktop\\property-manager\\backend\\propertymanager.api\\services\\inmemorydatastore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BB1130E6-37A5-43C6-A265-1043EB2551CF}|PropertyManager.Api\\PropertyManager.Api.csproj|solutionrelative:propertymanager.api\\services\\inmemorydatastore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BB1130E6-37A5-43C6-A265-1043EB2551CF}|PropertyManager.Api\\PropertyManager.Api.csproj|c:\\users\\iksas\\desktop\\property-manager\\backend\\propertymanager.api\\models\\bill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BB1130E6-37A5-43C6-A265-1043EB2551CF}|PropertyManager.Api\\PropertyManager.Api.csproj|solutionrelative:propertymanager.api\\models\\bill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -45,6 +69,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{BB1130E6-37A5-43C6-A265-1043EB2551CF}|PropertyManager.Api\\PropertyManager.Api.csproj|c:\\users\\iksas\\desktop\\property-manager\\backend\\propertymanager.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BB1130E6-37A5-43C6-A265-1043EB2551CF}|PropertyManager.Api\\PropertyManager.Api.csproj|solutionrelative:propertymanager.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\Services\\InMemoryDataStore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:PropertyManager.Api\\Services\\InMemoryDataStore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -59,6 +87,92 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "AdminNotificationsController.cs",
+              "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\Controllers\\AdminNotificationsController.cs",
+              "RelativeDocumentMoniker": "PropertyManager.Api\\Controllers\\AdminNotificationsController.cs",
+              "ToolTip": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\Controllers\\AdminNotificationsController.cs",
+              "RelativeToolTip": "PropertyManager.Api\\Controllers\\AdminNotificationsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T05:30:56.451Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IntegrationTests.cs",
+              "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api.Tests\\Integration\\IntegrationTests.cs",
+              "RelativeDocumentMoniker": "PropertyManager.Api.Tests\\Integration\\IntegrationTests.cs",
+              "ToolTip": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api.Tests\\Integration\\IntegrationTests.cs",
+              "RelativeToolTip": "PropertyManager.Api.Tests\\Integration\\IntegrationTests.cs",
+              "ViewState": "AgIAAOYGAAAAAAAAAAAqwAEHAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-07T11:41:42.273Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MaintenanceWorkflowTests.cs",
+              "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api.Tests\\MaintenanceWorkflowTests.cs",
+              "RelativeDocumentMoniker": "PropertyManager.Api.Tests\\MaintenanceWorkflowTests.cs",
+              "ToolTip": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api.Tests\\MaintenanceWorkflowTests.cs",
+              "RelativeToolTip": "PropertyManager.Api.Tests\\MaintenanceWorkflowTests.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-07T11:41:34.173Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "JwtTokenServiceTests.cs",
+              "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api.Tests\\JwtTokenServiceTests.cs",
+              "RelativeDocumentMoniker": "PropertyManager.Api.Tests\\JwtTokenServiceTests.cs",
+              "ToolTip": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api.Tests\\JwtTokenServiceTests.cs",
+              "RelativeToolTip": "PropertyManager.Api.Tests\\JwtTokenServiceTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-07T11:41:33.189Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "HttpUrlHelperTests.cs",
+              "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api.Tests\\HttpUrlHelperTests.cs",
+              "RelativeDocumentMoniker": "PropertyManager.Api.Tests\\HttpUrlHelperTests.cs",
+              "ToolTip": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api.Tests\\HttpUrlHelperTests.cs",
+              "RelativeToolTip": "PropertyManager.Api.Tests\\HttpUrlHelperTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-07T11:41:26.589Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ConnectionStringResolverTests.cs",
+              "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api.Tests\\ConnectionStringResolverTests.cs",
+              "RelativeDocumentMoniker": "PropertyManager.Api.Tests\\ConnectionStringResolverTests.cs",
+              "ToolTip": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api.Tests\\ConnectionStringResolverTests.cs",
+              "RelativeToolTip": "PropertyManager.Api.Tests\\ConnectionStringResolverTests.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-07T11:41:23.46Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ClaimsHelperTests.cs",
+              "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api.Tests\\ClaimsHelperTests.cs",
+              "RelativeDocumentMoniker": "PropertyManager.Api.Tests\\ClaimsHelperTests.cs",
+              "ToolTip": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api.Tests\\ClaimsHelperTests.cs",
+              "RelativeToolTip": "PropertyManager.Api.Tests\\ClaimsHelperTests.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-07T11:41:16.069Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "MaintenanceRequestsController.cs",
               "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\Controllers\\MaintenanceRequestsController.cs",
               "RelativeDocumentMoniker": "PropertyManager.Api\\Controllers\\MaintenanceRequestsController.cs",
@@ -66,12 +180,11 @@
               "RelativeToolTip": "PropertyManager.Api\\Controllers\\MaintenanceRequestsController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-26T12:12:21.716Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-26T12:12:21.716Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 8,
               "Title": "BuildingsController.cs",
               "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\Controllers\\BuildingsController.cs",
               "RelativeDocumentMoniker": "PropertyManager.Api\\Controllers\\BuildingsController.cs",
@@ -79,12 +192,11 @@
               "RelativeToolTip": "PropertyManager.Api\\Controllers\\BuildingsController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-26T12:11:39.008Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-26T12:11:39.008Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 9,
               "Title": "BillingController.cs",
               "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\Controllers\\BillingController.cs",
               "RelativeDocumentMoniker": "PropertyManager.Api\\Controllers\\BillingController.cs",
@@ -92,12 +204,11 @@
               "RelativeToolTip": "PropertyManager.Api\\Controllers\\BillingController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-26T12:11:36.267Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-26T12:11:36.267Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 12,
               "Title": "JwtTokenService.cs",
               "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\Services\\JwtTokenService.cs",
               "RelativeDocumentMoniker": "PropertyManager.Api\\Services\\JwtTokenService.cs",
@@ -105,12 +216,11 @@
               "RelativeToolTip": "PropertyManager.Api\\Services\\JwtTokenService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-26T12:11:30.179Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-26T12:11:30.179Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 17,
               "Title": "InMemoryDataStore.cs",
               "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\Services\\InMemoryDataStore.cs",
               "RelativeDocumentMoniker": "PropertyManager.Api\\Services\\InMemoryDataStore.cs",
@@ -118,12 +228,11 @@
               "RelativeToolTip": "PropertyManager.Api\\Services\\InMemoryDataStore.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-26T12:11:29.359Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-26T12:11:29.359Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 11,
               "Title": "IDataStore.cs",
               "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\Services\\IDataStore.cs",
               "RelativeDocumentMoniker": "PropertyManager.Api\\Services\\IDataStore.cs",
@@ -131,12 +240,11 @@
               "RelativeToolTip": "PropertyManager.Api\\Services\\IDataStore.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-26T12:11:20.128Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-26T12:11:20.128Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 13,
               "Title": "Bill.cs",
               "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\Models\\Bill.cs",
               "RelativeDocumentMoniker": "PropertyManager.Api\\Models\\Bill.cs",
@@ -144,12 +252,11 @@
               "RelativeToolTip": "PropertyManager.Api\\Models\\Bill.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-26T12:11:16.907Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-26T12:11:16.907Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
               "Title": "DashboardDto.cs",
               "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\Models\\Dtos\\DashboardDto.cs",
               "RelativeDocumentMoniker": "PropertyManager.Api\\Models\\Dtos\\DashboardDto.cs",
@@ -157,12 +264,11 @@
               "RelativeToolTip": "PropertyManager.Api\\Models\\Dtos\\DashboardDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-26T12:11:13.176Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-26T12:11:13.176Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "AuthDtos.cs",
               "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\Models\\Dtos\\AuthDtos.cs",
               "RelativeDocumentMoniker": "PropertyManager.Api\\Models\\Dtos\\AuthDtos.cs",
@@ -170,12 +276,11 @@
               "RelativeToolTip": "PropertyManager.Api\\Models\\Dtos\\AuthDtos.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-26T12:11:10.955Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-26T12:11:10.955Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 10,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "PropertyManager.Api\\Controllers\\AuthController.cs",
@@ -183,12 +288,11 @@
               "RelativeToolTip": "PropertyManager.Api\\Controllers\\AuthController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-26T12:11:05.569Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-26T12:11:05.569Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\Program.cs",
               "RelativeDocumentMoniker": "PropertyManager.Api\\Program.cs",
@@ -196,8 +300,7 @@
               "RelativeToolTip": "PropertyManager.Api\\Program.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-16T14:02:44.618Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-16T14:02:44.618Z"
             }
           ]
         }

@@ -9,6 +9,7 @@ import { useAdminBuildingFilter } from '../hooks/useAdminBuildingFilter';
 import { countCompletedInPeriod, recentlyCompletedRequests, type CompletedPeriod, } from '../utils/maintenanceCompletion';
 import { sortMaintenanceRequests } from '../utils/maintenanceSort';
 import type { MaintenanceRequest } from '../types';
+import './AdminDashboardPage.css';
 export function AdminDashboardPage() {
     const { auth } = useAuth();
     const showToast = useToast();

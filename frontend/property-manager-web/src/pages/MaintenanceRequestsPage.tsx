@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
 import { useAdminBuildingFilter } from '../hooks/useAdminBuildingFilter';
 import type { MaintenanceRequest } from '../types';
+import './MaintenanceRequestsPage.css';
 const STATUS_FILTER_OPTIONS = [
     'Requested',
     'Registered',

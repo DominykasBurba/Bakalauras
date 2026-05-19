@@ -1,0 +1,69 @@
+.account-settings-page .page-subtitle {
+  margin-bottom: 20px;
+}
+
+.account-settings-header .back-link {
+  margin-bottom: 8px;
+}
+
+.account-settings-layout {
+  display: grid;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (min-width: 960px) {
+  .account-settings-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+    gap: 24px;
+  }
+}
+
+.account-settings-layout > .card {
+  margin-bottom: 0;
+}
+
+.account-settings-page {
+  padding-bottom: 8px;
+}
+
+.account-settings-page .profile-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 32%) minmax(0, 1fr);
+  column-gap: 16px;
+  row-gap: 6px;
+  align-items: baseline;
+}
+
+.account-settings-page .profile-detail-grid dt {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--text-secondary);
+}
+
+.account-settings-page .profile-detail-grid dd {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.account-settings-page .profile-value-mono {
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, 'Cascadia Code', 'Segoe UI Mono', monospace;
+  font-size: 0.92rem;
+}
+
+.account-settings-page .profile-value-multiline {
+  white-space: pre-wrap;
+}
+
+.account-password-form.building-form label {
+  margin-bottom: 12px;
+}
+
+.account-password-form .work-order-actions {
+  margin-top: 12px;
+}

@@ -77,3 +77,4 @@ C:\Users\iksas\Desktop\property-manager\backend\PropertyManager.Api\bin\Release\
 C:\Users\iksas\Desktop\property-manager\backend\PropertyManager.Api\bin\Release\net10.0\System.Configuration.ConfigurationManager.dll
 C:\Users\iksas\Desktop\property-manager\backend\PropertyManager.Api\bin\Release\net10.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\iksas\Desktop\property-manager\backend\PropertyManager.Api\bin\Release\net10.0\System.Security.Cryptography.ProtectedData.dll
+c:\Users\iksas\Desktop\property-manager\backend\PropertyManager.Api\obj\Release\net10.0\PropertyManager.Api.sourcelink.json

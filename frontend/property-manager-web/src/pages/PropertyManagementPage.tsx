@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
 import { useBuilding } from '../contexts/BuildingContext';
 import type { OccupancyListItem, PropertyOverview, ResidentPicker, UnitDto, UnitWrite, } from '../types';
+import './PropertyManagementPage.css';
 type Tab = 'overview' | 'units' | 'occupants';
 function emptyUnitWrite(): UnitWrite {
     return { unitCode: '', floor: '', areaSqm: undefined, notes: '', photoUrls: [] };

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getResidentProfile, putResidentProfile } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
+import './CompleteProfilePage.css';
 export function CompleteProfilePage() {
     const { auth, refreshAuth } = useAuth();
     const showToast = useToast();

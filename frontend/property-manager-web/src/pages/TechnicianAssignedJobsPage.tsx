@@ -4,6 +4,7 @@ import { TechnicianWorkOrderRow } from '../components/TechnicianWorkOrderRow';
 import { useTechnicianDashboardRequests } from '../hooks/useTechnicianDashboardRequests';
 import { sortMaintenanceRequests } from '../utils/maintenanceSort';
 import type { MaintenanceRequest } from '../types';
+import './TechnicianAssignedJobsPage.css';
 const BACK = '/service-provider/assigned-jobs';
 type StatusFilter = 'all' | 'new' | 'in_progress' | 'solved' | 'awaiting_payment' | 'completed';
 const FILTER_OPTIONS: {

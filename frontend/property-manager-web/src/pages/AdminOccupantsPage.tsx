@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
 import { useBuilding } from '../contexts/BuildingContext';
 import type { OccupantAdminDetail, OccupantAdminRow, UnitDto } from '../types';
+import './AdminOccupantsPage.css';
 function statusLabel(status: string): string {
     switch (status) {
         case 'pending_profile':

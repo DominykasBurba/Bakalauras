@@ -4,6 +4,7 @@ import { createMaintenanceRequest, getAuthSession } from '../services/api';
 import type { SessionResponse } from '../types';
 import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
+import './ReportIssuePage.css';
 const MAX_PHOTOS = 6;
 const MAX_FILE_BYTES = 8 * 1024 * 1024;
 const DEFAULT_SUBMIT_PRIORITY = 'Medium';

@@ -4,6 +4,7 @@ import { createTechnicianOfferedService, getTechnicianOfferedServices } from '..
 import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
 import type { OfferedServiceReviewStatus, TechnicianOfferedService } from '../types';
+import './TechnicianOfferedServicesPage.css';
 function offeredStatusLabel(status: OfferedServiceReviewStatus | undefined): string {
     const s = status ?? 'approved';
     if (s === 'pending_review')

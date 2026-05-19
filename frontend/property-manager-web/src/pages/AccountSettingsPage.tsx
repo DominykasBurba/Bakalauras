@@ -6,6 +6,7 @@ import { useToast } from '../contexts/ToastContext';
 import { isResidentRole } from '../utils/auth';
 import { formatRoomUnitLabel } from '../utils/unitLabel';
 import type { SessionResponse } from '../types';
+import './AccountSettingsPage.css';
 function dash(s: string | null | undefined): string {
     const t = s?.trim();
     return t ? t : '—';

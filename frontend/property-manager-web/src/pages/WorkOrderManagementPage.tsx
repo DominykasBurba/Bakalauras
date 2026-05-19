@@ -10,6 +10,7 @@ import { confirmDelete } from '../utils/confirmDelete';
 import { normalizeHttpUrl } from '../utils/httpUrl';
 import { WorkOrderCollapsibleCard } from '../components/WorkOrderCollapsibleCard';
 import type { MaintenanceRequest, ServiceCatalogItem, TechnicianAssignmentContext, TechnicianSiteUpdateHistoryEntry, } from '../types';
+import './WorkOrderManagementPage.css';
 type WorkOrderLocationState = {
     technicianBackPath?: string;
 };

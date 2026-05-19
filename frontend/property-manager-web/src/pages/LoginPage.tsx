@@ -4,6 +4,7 @@ import { login } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
 import { SUPPRESS_LOGIN_RETURN_PATH_KEY } from '../utils/auth';
+import './LoginPage.css';
 function friendlyLoginError(message: string): string {
     const t = message.trim().toLowerCase();
     if (t.includes('invalid credentials') || t.includes('invalid email or password')) {

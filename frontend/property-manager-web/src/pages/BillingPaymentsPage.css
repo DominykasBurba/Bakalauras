@@ -1,0 +1,238 @@
+.bill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bill-item {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.bill-item-with-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+
+.bill-item-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px 32px;
+  width: 100%;
+}
+
+.bill-item-top > .bill-item-main {
+  flex: 1;
+  min-width: min(100%, 260px);
+  margin-bottom: 0;
+}
+
+.bill-item-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.bill-item-id {
+  font-size: 1.05rem;
+}
+
+.bill-item-type {
+  margin: 0 0 6px;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.bill-item-desc {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+}
+
+.bill-item-due {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.bill-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+
+.billing-payments-page .bill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: inherit;
+  line-height: 1.25;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+}
+
+.billing-payments-page .bill-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.billing-payments-page .bill-btn--outline {
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--card-border);
+}
+
+.billing-payments-page .bill-btn--outline:hover:not(:disabled) {
+  background: var(--bg-page);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.billing-payments-page .bill-btn--pay {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: var(--primary);
+  color: #fff;
+  border: 1px solid var(--primary);
+}
+
+.billing-payments-page .bill-btn--pay:hover:not(:disabled) {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.billing-payments-page .bill-btn--compact {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.billing-payments-page .billing-table-actions {
+  vertical-align: middle;
+  white-space: nowrap;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.bill-detail-panel {
+  margin-top: 16px;
+  padding: 18px 20px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--card-border);
+  background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%);
+  text-align: left;
+}
+
+.bill-detail-kicker {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
+.bill-detail-title {
+  margin: 0 0 14px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.bill-detail-dl {
+  display: grid;
+  grid-template-columns: minmax(7rem, auto) 1fr;
+  gap: 10px 20px;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.bill-detail-dl dt {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.bill-detail-dl dd {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.bill-detail-generated {
+  margin: 16px 0 0;
+  font-size: 0.75rem;
+}
+
+.bill-detail-table-row td {
+  padding-top: 0;
+  padding-bottom: 18px;
+  vertical-align: top;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.bill-detail-table-row .bill-detail-panel {
+  margin-top: 0;
+}
+.bill-item-aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.bill-item-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+@media (max-width: 560px) {
+  .bill-item-top .bill-item-aside {
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .billing-payments-page .bill-item-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .billing-payments-page .bill-item-actions .bill-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .bill-detail-dl {
+    grid-template-columns: 1fr;
+    gap: 4px 0;
+  }
+
+  .bill-detail-dl dt {
+    margin-top: 10px;
+  }
+
+  .bill-detail-dl dt:first-child {
+    margin-top: 0;
+  }
+}

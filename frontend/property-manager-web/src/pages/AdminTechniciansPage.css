@@ -1,0 +1,58 @@
+.admin-technicians-table-wrap {
+  overflow-x: auto;
+}
+
+.admin-technicians-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.admin-technicians-table th,
+.admin-technicians-table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--card-border);
+  vertical-align: top;
+}
+
+.admin-technicians-table th {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.admin-technicians-unit {
+  font-weight: 400;
+}
+
+.admin-technicians-table-legend {
+  margin: 0 0 16px;
+  max-width: 48rem;
+}
+
+.admin-technicians-row-actions {
+  vertical-align: middle;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.admin-technicians-open-link {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.admin-datatable-cell-list {
+  display: inline-block;
+  max-width: min(22rem, 100%);
+  word-break: break-word;
+}
+
+.admin-technicians-pending-offers {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #92400e;
+}

@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("47cf8d53-09ff-4794-b480-f1b3505f34e4")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("PropertyManager.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+390ea4f21591060d4b9bb61ac25b08251ebebdf9")]
 [assembly: System.Reflection.AssemblyProductAttribute("PropertyManager.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PropertyManager.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

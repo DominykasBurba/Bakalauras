@@ -1,0 +1,129 @@
+.admin-technician-catalog-checklist {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.admin-technician-catalog-checklist li {
+  margin-bottom: 8px;
+}
+
+.admin-technician-fieldset {
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px 8px;
+  margin-bottom: 16px;
+}
+
+.admin-technician-fieldset legend {
+  padding: 0 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.building-form.admin-technician-form textarea {
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  min-height: 2.75rem;
+}
+
+.admin-technician-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.building-form.admin-technician-form label.admin-technician-check {
+  align-items: flex-start;
+  text-align: left;
+  max-width: none;
+}
+
+.building-form.admin-technician-form label.admin-technician-check input[type='checkbox'] {
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.admin-technician-check input {
+  width: auto;
+}
+
+.admin-technician-offered-review-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin-technician-offered-review-item {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.admin-technician-offered-review-item:last-child {
+  border-bottom: none;
+}
+
+.admin-technician-offered-review-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin-bottom: 6px;
+}
+
+.admin-technician-offered-review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px 14px;
+  margin-top: 14px;
+}
+
+.admin-technician-compliance-details {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-technician-compliance-details > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  user-select: none;
+}
+
+.admin-technician-compliance-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.admin-technician-compliance-details > summary::before {
+  content: '';
+  display: inline-block;
+  width: 0.45em;
+  height: 0.45em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  margin-top: -0.15em;
+  opacity: 0.75;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.admin-technician-compliance-details[open] > summary {
+  margin-bottom: 24px;
+}
+
+.admin-technician-compliance-details[open] > summary::before {
+  transform: rotate(45deg);
+  margin-top: 0;
+}

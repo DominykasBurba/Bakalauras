@@ -5,6 +5,7 @@ import { deleteAdminServiceCatalogItem, getAdminServiceCatalog, getAdminPendingT
 import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
 import type { PendingTechnicianOfferedServiceRow, ServiceCatalogItem, TechnicianOfferedService } from '../types';
+import './AdminServiceCatalogPage.css';
 export function AdminServiceCatalogPage() {
     const { auth } = useAuth();
     const showToast = useToast();

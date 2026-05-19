@@ -1,0 +1,867 @@
+.work-order-technician-site-lead {
+  margin: -4px 0 14px;
+  max-width: none;
+}
+
+
+.page.work-order-page--single-column {
+  max-width: none;
+}
+
+
+.work-order-page--single-column .work-order-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: none;
+}
+
+
+.work-order-card--technician-site {
+  grid-column: 1 / -1;
+}
+
+
+.work-order-site-history-intro {
+  margin-top: 0;
+}
+
+
+.work-order-site-history {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+
+.work-order-site-history-item {
+  margin: 0;
+}
+
+
+.work-order-site-history-when {
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+
+.work-order-site-history-text {
+  margin: 0 0 8px;
+  white-space: pre-wrap;
+}
+
+
+.work-order-site-history-meta {
+  margin: 0 0 4px;
+  font-size: 0.92rem;
+  color: var(--text-secondary, #5c6570);
+}
+
+
+.work-order-site-history-label {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-right: 4px;
+}
+
+
+.work-order-site-history-office .work-order-site-history-label {
+  font-style: italic;
+}
+
+
+.work-order-card.work-order-collapsible {
+  padding: 0;
+  margin-bottom: 0;
+}
+
+
+.work-order-collapsible-summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  margin: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+
+.work-order-collapsible-summary::-webkit-details-marker {
+  display: none;
+}
+
+
+.work-order-collapsible-summary-main {
+  flex: 1;
+  min-width: 0;
+}
+
+
+.work-order-collapsible-summary-main .card-title {
+  margin: 0;
+}
+
+
+.work-order-collapsible-toggle {
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+
+.work-order-collapsible-body {
+  padding: 0 24px 24px;
+  border-top: 1px solid var(--card-border);
+}
+
+
+.work-order-collapsible-body .building-form label:first-child {
+  margin-top: 4px;
+}
+
+
+.work-order-card.work-order-collapsible.work-order-card--resident-feedback .work-order-collapsible-summary {
+  padding-top: 22px;
+}
+
+
+.work-order-page--admin .work-order-card.work-order-collapsible {
+  max-width: none;
+  width: 100%;
+}
+
+
+.work-order-subcard-title {
+  margin: 0 0 14px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+
+.work-order-open-link-wrap {
+  margin-top: 16px;
+}
+
+
+.work-order-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+
+.work-order-grid > .card {
+  margin-bottom: 0;
+}
+
+
+.work-order-page--admin {
+  max-width: min(72rem, 100%);
+}
+
+
+.work-order-page--admin .page-subtitle {
+  margin-bottom: 20px;
+}
+
+
+.work-order-page--admin .work-order-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+
+.work-order-admin-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  width: 100%;
+}
+
+
+@media (min-width: 1024px) {
+  .work-order-page--admin .work-order-admin-columns {
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 1fr);
+    align-items: start;
+    gap: 28px 36px;
+  }
+}
+
+
+.work-order-admin-primary {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+
+.work-order-admin-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+
+.work-order-admin-rail .work-order-card--approve {
+  max-width: none;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 20px 20px 18px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+
+.work-order-approve-title {
+  margin: 0 0 14px;
+}
+
+
+.work-order-decline-note {
+  padding: 14px 16px 16px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid var(--card-border);
+  margin-bottom: 16px;
+}
+
+
+.work-order-decline-note-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+
+.work-order-decline-reason-input {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  margin: 0;
+  min-height: 84px;
+  resize: vertical;
+  padding: 11px 13px;
+  font: inherit;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--card-bg);
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+
+.work-order-decline-reason-input::placeholder {
+  color: #94a3b8;
+}
+
+
+.work-order-decline-reason-input:hover:not(:disabled) {
+  border-color: #94a3b8;
+}
+
+
+.work-order-decline-reason-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+
+.work-order-decline-reason-input:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  background: var(--bg-page);
+}
+
+
+.work-order-approve-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  margin: 0;
+}
+
+
+.work-order-approve-btn {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+
+.work-order-admin-rail .work-order-card--admin-actions {
+  max-width: none;
+}
+
+
+.work-order-page--admin .work-order-card--details,
+.work-order-page--admin .work-order-card--triage,
+.work-order-page--admin .work-order-card--approve,
+.work-order-page--admin .work-order-card--admin-actions,
+.work-order-page--admin .work-order-card--admin-followup,
+.work-order-page--admin .work-order-card--technician-work {
+  grid-column: unset;
+  max-width: none;
+  width: 100%;
+}
+
+
+@media (min-width: 900px) {
+  .work-order-grid--resident-split {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.95fr);
+    align-items: start;
+    gap: 28px;
+  }
+
+  .work-order-grid--resident-split .work-order-card--details {
+    grid-column: auto;
+  }
+}
+
+
+.work-order-page--resident-split .work-order-grid {
+  max-width: 1120px;
+}
+
+
+.work-order-tenant-unpaid-note {
+  margin-bottom: 14px;
+  max-width: 36rem;
+  line-height: 1.45;
+}
+
+
+.work-order-bill-intro {
+  margin: 0 0 18px;
+  max-width: 42rem;
+  line-height: 1.5;
+}
+
+
+.work-order-bill-draft-notice {
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
+
+.work-order-bill-draft-notice .muted {
+  margin-bottom: 12px;
+}
+
+
+.work-order-card--details {
+  grid-column: 1 / -1;
+}
+
+
+.work-order-card--technician-work {
+  grid-column: 1 / -1;
+}
+
+
+.work-order-card--admin-followup {
+  grid-column: 1 / -1;
+  max-width: 40rem;
+}
+
+
+.work-order-page--admin .work-order-card--admin-followup {
+  max-width: none;
+}
+
+
+.work-order-card--resident-feedback {
+  position: relative;
+  padding: 24px 24px 26px;
+  border: 1px solid rgba(14, 165, 233, 0.22);
+  background: linear-gradient(165deg, #ffffff 0%, #f8fafc 55%, #f1f5f9 100%);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+
+.work-order-card--resident-feedback.work-order-collapsible {
+  padding: 0;
+}
+
+
+.work-order-card--resident-feedback.work-order-collapsible .work-order-collapsible-summary {
+  padding: 22px 24px 16px;
+}
+
+
+.work-order-card--resident-feedback.work-order-collapsible .work-order-collapsible-summary .work-order-feedback-title {
+  margin-bottom: 0;
+}
+
+
+.work-order-card--resident-feedback::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--primary) 0%, #0284c7 100%);
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+
+
+.work-order-feedback-eyebrow {
+  margin: 0 0 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+
+.work-order-feedback-title {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+
+.work-order-feedback-lead {
+  margin: 0 0 20px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  max-width: 36rem;
+}
+
+
+.work-order-card--resident-feedback .work-order-feedback-lead {
+  max-width: none;
+}
+
+
+.work-order-resident-summary-hint {
+  margin: 12px 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  max-width: 52rem;
+}
+
+
+.work-order-feedback-office-reply {
+  margin: 0 0 20px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(14, 165, 233, 0.28);
+  background: rgba(14, 165, 233, 0.06);
+}
+
+
+.work-order-feedback-office-reply-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary, #0ea5e9);
+  margin-bottom: 8px;
+}
+
+
+.work-order-feedback-office-reply-body {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  color: var(--text-primary);
+}
+
+
+.work-order-feedback-saved {
+  margin: 0 0 20px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--card-border);
+  background: var(--card-bg, #fff);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+
+.work-order-feedback-saved-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+
+.work-order-feedback-saved-body {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  color: var(--text-primary);
+}
+
+
+.work-order-feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+
+.work-order-feedback-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+
+.work-order-feedback-textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  resize: vertical;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+
+.work-order-feedback-textarea:hover:not(:disabled) {
+  border-color: #cbd5e1;
+}
+
+
+.work-order-feedback-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+}
+
+
+.work-order-feedback-textarea:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+
+.work-order-actions--resident-feedback {
+  margin-top: 18px;
+}
+
+
+.btn-primary--work-order-feedback {
+  min-width: 10rem;
+  padding: 12px 22px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+
+.work-order-details-collapse {
+  border: none;
+}
+
+
+.work-order-details-resident-static .work-order-details-summary-top {
+  margin-bottom: 0;
+}
+
+
+.work-order-details-summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0;
+}
+
+
+.work-order-details-summary::-webkit-details-marker {
+  display: none;
+}
+
+
+.work-order-details-summary-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+
+@media (min-width: 640px) {
+  .work-order-details-summary-top {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px 24px;
+  }
+
+  .work-order-details-summary-top .details-expand-hint {
+    flex-shrink: 0;
+    margin-top: 2px;
+    text-decoration: none;
+    color: var(--primary);
+    font-weight: 500;
+  }
+
+  .work-order-details-summary-top .details-expand-hint:hover {
+    text-decoration: underline;
+  }
+}
+
+
+.work-order-details-summary-body {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+
+.work-order-details-summary-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+
+.work-order-details-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+
+.work-order-details-summary-meta {
+  margin: 6px 0 0;
+}
+
+
+.work-order-details-summary-top .details-expand-hint {
+  display: inline-block;
+  margin-top: 0;
+  text-decoration: underline;
+}
+
+
+.work-order-details-body-scroll {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--card-border);
+  max-height: min(62vh, 480px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding-right: 6px;
+  scrollbar-gutter: stable;
+}
+
+
+.work-order-details-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+
+@media (min-width: 700px) {
+  .work-order-details-columns {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px 36px;
+    align-items: start;
+  }
+}
+
+
+.work-order-details-col-title {
+  margin: 0 0 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+
+.work-order-details-columns .detail-list {
+  margin: 0;
+}
+
+
+.work-order-details-columns .detail-list dt {
+  margin-top: 14px;
+  font-size: 0.875rem;
+}
+
+
+.work-order-details-columns .detail-list dt:first-of-type {
+  margin-top: 0;
+}
+
+
+.work-order-details-columns .detail-list dd {
+  margin: 6px 0 0;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+}
+
+
+.work-order-details-description {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+
+.work-order-vendor-payout-lead {
+  margin: 0 0 12px;
+  max-width: 36rem;
+}
+
+
+.work-order-card--vendor-payout {
+  grid-column: 1 / -1;
+  max-width: 40rem;
+}
+
+
+.work-order-card--admin-actions {
+  grid-column: 1 / -1;
+  max-width: 40rem;
+}
+
+
+.work-order-card--triage {
+  grid-column: 1 / -1;
+  max-width: 36rem;
+}
+
+
+.work-order-page--admin .work-order-card--triage {
+  max-width: none;
+}
+
+
+.work-order-card--approve {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  grid-column: 1 / -1;
+  max-width: 48rem;
+}
+
+
+.work-order-approve-error {
+  width: 100%;
+  margin: 12px 0 0;
+}
+
+
+@media (max-width: 520px) {
+  .work-order-approve-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.work-order-page--admin .work-order-card .card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+
+.work-order-page--admin .work-order-actions .btn-primary,
+.work-order-page--admin .work-order-actions .btn-secondary,
+.work-order-page--admin .work-order-assignment-save,
+.work-order-page--admin .work-order-triage-save {
+  padding: 10px 22px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  min-height: 46px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.work-order-page--admin .work-order-card--admin-actions .work-order-actions--inline,
+.work-order-page--admin .work-order-card--admin-followup .work-order-actions--inline {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  gap: 10px;
+}
+
+
+.work-order-page--admin .work-order-card--admin-actions .work-order-actions--inline > .btn-primary,
+.work-order-page--admin .work-order-card--admin-actions .work-order-actions--inline > .btn-secondary,
+.work-order-page--admin .work-order-card--admin-followup .work-order-actions--inline > .btn-primary,
+.work-order-page--admin .work-order-card--admin-followup .work-order-actions--inline > .btn-secondary {
+  width: 100%;
+}
+
+
+.work-order-page--admin .work-order-bill-draft-notice .btn-primary {
+  width: 100%;
+}
+
+
+.work-order-page--admin .work-order-card--approve .work-order-approve-actions .btn-primary,
+.work-order-page--admin .work-order-card--approve .work-order-approve-actions .btn-danger {
+  padding: 12px 18px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  min-height: 46px;
+  box-sizing: border-box;
+}
+
+
+.work-order-admin-lead {
+  margin-bottom: 12px;
+}
+
+
+.work-order-admin-divider {
+  height: 1px;
+  margin: 24px 0;
+  background: var(--card-border);
+  border: none;
+}

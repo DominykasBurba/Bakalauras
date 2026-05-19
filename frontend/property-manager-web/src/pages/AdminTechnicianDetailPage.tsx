@@ -5,6 +5,7 @@ import { getAdminServiceCatalog, getAdminTechnician, putAdminTechnicianCatalogSe
 import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
 import type { ServiceCatalogItem, TechnicianDetail, TechnicianOfferedService, TechnicianProfileWritePayload, } from '../types';
+import './AdminTechnicianDetailPage.css';
 const CONTRACTOR_TYPES = [
     { value: '', label: '— Select —' },
     { value: 'w2', label: 'W-2 employee' },

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { TechnicianWorkOrderRow } from '../components/TechnicianWorkOrderRow';
 import { useTechnicianDashboardRequests } from '../hooks/useTechnicianDashboardRequests';
+import './ServiceProviderPage.css';
 const ASSIGNED_PREVIEW_LIMIT = 6;
 const DASHBOARD_BACK = '/service-provider';
 export function ServiceProviderPage() {

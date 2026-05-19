@@ -4,6 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { useToast } from "../contexts/ToastContext";
 import { useBuilding } from "../contexts/BuildingContext";
 import type { Building, BuildingInput } from "../types";
+import "./BuildingsPage.css";
 const emptyForm = (): BuildingInput => ({
     name: "",
     address: "",

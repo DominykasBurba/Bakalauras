@@ -8,6 +8,7 @@ import { isAdminRole, isResidentRole } from '../utils/auth';
 import { notificationCategoryLabel } from '../utils/notifications';
 import { sortMaintenanceRequests } from '../utils/maintenanceSort';
 import type { MaintenanceRequest, NotificationItem, ScheduledMaintenanceItem } from '../types';
+import './ResidentDashboardPage.css';
 const DASHBOARD_MAINTENANCE_PREVIEW = 3;
 export function ResidentDashboardPage() {
     const { auth } = useAuth();

@@ -7,6 +7,7 @@ import { useAdminBuildingFilter } from "../hooks/useAdminBuildingFilter";
 import { isAdminRole } from "../utils/auth";
 import { notificationCategoryLabel } from "../utils/notifications";
 import type { NotificationItem } from "../types";
+import "./NotificationsPage.css";
 export function NotificationsPage() {
     const { auth } = useAuth();
     const showToast = useToast();

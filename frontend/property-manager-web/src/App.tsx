@@ -32,7 +32,7 @@ import { ServiceProviderRoute } from './components/ServiceProviderRoute';
 import { TechnicianOnlyRoute } from './components/TechnicianOnlyRoute';
 import { TechnicianOfferedServicesPage } from './pages/TechnicianOfferedServicesPage';
 import { TechnicianAssignedJobsPage } from './pages/TechnicianAssignedJobsPage';
-import './App.css';
+import './styles/global.css';
 function HomeRoute() {
     const { auth } = useAuth();
     if (isAdminRole(auth?.role)) {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vGYMh2NwTPU=",
+  "dgSpecHash": "nA0sJ2hK288=",
   "success": true,
-  "projectFilePath": "c:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\PropertyManager.Api.csproj",
+  "projectFilePath": "C:\\Users\\iksas\\Desktop\\property-manager\\backend\\PropertyManager.Api\\PropertyManager.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\iksas\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\iksas\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\10.0.5\\microsoft.aspnetcore.authentication.jwtbearer.10.0.5.nupkg.sha512",
